@@ -1,3 +1,15 @@
+# workout-tracker by Sheryl Hohman copyright 2021
+
+## This app is for recording workouts and showing stats  
+
+#### Ideally it will help one reach their fitness goals, and to create a long-term activity log to refer over a lifetime of activity.  
+
+#### It could be used for tracking other activities as well  
+
+#### I might even add AI stats  
+
+
+----------------------------------------
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
