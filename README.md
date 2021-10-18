@@ -2,26 +2,25 @@
 by Sheryl Hohman copyright 2021  
 
 ## This app is a personal project for recording workouts and showing stats  
+### Test this app out at:  
+
+(netlify - automatically deploys the latest pushed code)  
+	[![Netlify Status](https://api.netlify.com/api/v1/badges/45895dff-5c1a-4a2e-8326-0694ff5c7276/deploy-status)](https://app.netlify.com/sites/sheryl-workout-tracker/deploys)  
+	[workout-tracker (netlify deployment)](https://inspiring-lamarr-c3d3fa.netlify.app)  
+	`https://inspiring-lamarr-c3d3fa.netlify.app`    
+
+(vercel - less frequently updated)  
+	[workout-tracker (vercel deployment)](https://workout-tracker-five.vercel.app)  
+	(`https://workout-tracker-five.vercel.app`)  
 
 ### WIP: Current Status of this app is Stage 0
 
     Setting up initial tooling
     NOT even close to an MVP!
 	(just shows create-react-app page!)
-	
-### Test this app out at:  
 
-(netlify - automatically deploys the latest pushed code)  
-	[workout-tracker (netlify deployment)](https://inspiring-lamarr-c3d3fa.netlify.app)  
-	[![Netlify Status](https://api.netlify.com/api/v1/badges/45895dff-5c1a-4a2e-8326-0694ff5c7276/deploy-status)](https://app.netlify.com/sites/sheryl-workout-tracker/deploys)  
-	`https://inspiring-lamarr-c3d3fa.netlify.app`    
 
-(vercel - less frequently updated)  
-	[workout-tracker (vercel deployment)](https://workout-tracker-five.vercel.app)  
-	(`https://workout-tracker-five.vercel.app`)  
--------
-
-### The app should show:
+### The app (will) show:
 
   - log of all workouts
   - ability to add and edit workouts
