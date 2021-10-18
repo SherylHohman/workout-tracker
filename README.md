@@ -1,24 +1,59 @@
 # workout-tracker by Sheryl Hohman copyright 2021  
 
-## This app is for recording workouts and showing stats  
+## This app is a personal project for recording my workouts and showing stats  
 
-#### Ideally it will help one reach their fitness goals, and to create a long-term activity log to refer over a lifetime of activity.  
-
-#### It could be used for tracking other activities as well  
-
-#### I might even add AI stats  
-
+## WIP: Current Status of this app is Stage 0
+    Setting up initial tooling
+    NOT even close to an MVP!
+	(just shows create-react-app page!)
+	
 -------
 Test this app out at:
-(netlify - automatically deploys the latest pushed code)
 
+(netlify - automatically deploys the latest pushed code)
 	[workout-tracker (netlify deployment)](https://inspiring-lamarr-c3d3fa.netlify.app)  
-	[![Netlify Status](https://api.netlify.com/api/v1/badges/45895dff-5c1a-4a2e-8326-0694ff5c7276/deploy-status)](https://app.netlify.com/sites/inspiring-lamarr-c3d3fa/deploys)  
+	[Netlify Status](https://api.netlify.com/api/v1/badges/45895dff-5c1a-4a2e-8326-0694ff5c7276/deploy-status)](https://app.netlify.com/sites/inspiring-lamarr-c3d3fa/deploys)  
 	(`https://inspiring-lamarr-c3d3fa.netlify.app`)  
 
 (vercel - less frequently updated)  
 	[workout-tracker (vercel deployment)](https://workout-tracker-five.vercel.app)  
 	(`https://workout-tracker-five.vercel.app`)  
+-------
+
+### The app should show:
+  - log of all workouts
+  - ability to add and edit workouts
+  - configuration of goal(s)
+  - charts of average activity based on a selected time frame.
+  - comparison chart of goal vs actual
+  -  (configuration of categories))
+  -  (configuration of data stored per category)
+  -  (an estimated amount of activity required to meed the overall goal. or a workout plan)
+  -  (suggestion for a modified goal, if the current one is unreasonable)
+
+## example goals:
+My main workout "goal" is to achieve a certain Average number of minutes
+ per year/month/day.
+And These are defined in 3 main categories:
+ - weights (including calesthenics)
+ - cardio (eg cycling, jogging, swimming?)
+ - stretch (yoga, stretching, etc)
+ - movement? (walking, gardening?)
+Would even like to add a category for 
+ - outside vs inside/home/gym  
+   eg cycling on stationary bike or jogging on treadmill
+   vs "real life" jogging or cycling outdoors
+Some min number of time doing an outdoor activity/year.
+
+Ideally it will help me stay on track to achieve an average fitness goals, 
+and to create a long-term activity log to refer over a lifetime of activity.  
+
+Eventually it could be used for tracking other activities as well  
+
+I might even add AI stats. 
+Like the probability I'll workout tomorrow.
+Or, a reasonable plan of attack to reach a specific goal, 
+based on my long, short, and medium historical patterns of workouts.
 
 ----------------------------------------
 # Getting Started with Create React App
@@ -190,3 +225,67 @@ Add snippet to readme to always display status of latest build
 [![Netlify Status](https://api.netlify.com/api/v1/badges/45895dff-5c1a-4a2e-8326-0694ff5c7276/deploy-status)](https://app.netlify.com/sites/inspiring-lamarr-c3d3fa/deploys)
 ```
 
+===========================
+
+# Roadmap:
+
+..
+
+===========================
+
+# TODO:
+
+- fix readme
+- get a basic CSS framework for initial styling
+  top contenders:  
+  (both can be used immediately via CDN link,
+   or installed to project via npm
+  )
+  
+  - Bulma.io 
+    (cons: 
+	 - hard to change primary colors (install sass system & rebuild the library)
+	 - ONLY class based, nod efault styling based on html tags)
+	 - will have to edit every line of JSX when it comes time to replace the library!
+	 - their style classnames are NOT prefixed!
+	 pros: 
+	 - only needs a CSS file to use the default colors, et al
+	 - just add classes to (EVERY) element, see website for results
+	 - I like the look of their styles (except the colors!!)
+	 - decent default styling for MVP
+	 - no JS
+	`npm install bulma-start` (would also need this to customize colors, or anything else)
+	    or
+	 CDN: `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">`
+	and
+	`<meta name="viewport" content="width=device-width, initial-scale=1">`
+	
+  - purecss.io
+	- some default styling based on HTML tags
+	- class based styling otherwise
+	- their class based styles are prefixed with pure-
+	- their class based styles are easier to remember
+	- might be easier to edit styles than Bulma??
+	cons
+	 - I do not much like their default styling
+	   esp light vs dark gray on forms, and spacing between element
+	 `npm install purecss --save`
+	  or
+	 CDN: `<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">`
+	and
+	`<meta name="viewport" content="width=device-width, initial-scale=1">
+	 
+- replace default create-react-app with my App name (anything else)
+
+- replace netlify url with custom netifly url
+- replace netlify url with my own domain url
+- change netlify to create temp preview urls for branches
+- maybe disable auto redeploy until have an MVP
+
+- start working on a dev branch  
+
+===========================
+
+# Changelog:
+
+-
