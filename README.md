@@ -6,8 +6,8 @@ by Sheryl Hohman copyright 2021
 
  - (netlify - automatically deploys the latest pushed code)  
 	[![Netlify Status](https://api.netlify.com/api/v1/badges/45895dff-5c1a-4a2e-8326-0694ff5c7276/deploy-status)](https://app.netlify.com/sites/sheryl-workout-tracker/deploys)  
-	[workout-tracker (netlify deployment)](https://inspiring-lamarr-c3d3fa.netlify.app)  
-	`https://inspiring-lamarr-c3d3fa.netlify.app`    
+	[workout-tracker (netlify deployment)](https://sheryl-workout-tracker.netlify.app/)  
+	`https://sheryl-workout-tracker.netlify.app/`    
 
  - (vercel - less frequently updated)  
 	[workout-tracker (vercel deployment)](https://workout-tracker-five.vercel.app)  
@@ -211,19 +211,19 @@ Here is the link my netlify dashboard for workout-tracker app:
   
   
 Here is my netlify deployed app workout-tracker 
-  https://inspiring-lamarr-c3d3fa.netlify.app
+  https://sheryl-workout-tracker.netlify.app/
   
 >You can change a site’s default Netlify subdomain by selecting the Options button next to the subdomain in the Custom domains panel, then selecting Edit site name in the dropdown.
   
 Can change to a custom domain from netlify app dashboard:
 (will need to do some domain configuration though, unless buy domain through them - they'll do it automatically)
-	https://app.netlify.com/sites/inspiring-lamarr-c3d3fa/settings/domain/setup
+	https://app.netlify.com/sites/sheryl-workout-tracker/settings/domain/setup
 
 
 Add snippet to readme to always display status of latest build
 >This image automatically updates to reflect the current state of your latest production deploy. You can use the markdown snippet below to add it to your project README.
 ```
-[![Netlify Status](https://api.netlify.com/api/v1/badges/45895dff-5c1a-4a2e-8326-0694ff5c7276/deploy-status)](https://app.netlify.com/sites/inspiring-lamarr-c3d3fa/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/45895dff-5c1a-4a2e-8326-0694ff5c7276/deploy-status)](https://app.netlify.com/sites/sheryl-workout-tracker/deploys)
 ```
 
 ===========================
@@ -240,7 +240,6 @@ Add snippet to readme to always display status of latest build
 - fix tooling: create-react-app apparantly included 
   25 security alerts! (github dependabot alerts)
   
-- fix readme
 
 - get a basic CSS framework for initial styling
   top contenders:  
@@ -283,7 +282,6 @@ Add snippet to readme to always display status of latest build
 	 
 - replace default create-react-app with my App name (anything else)
 
-- replace netlify url with custom netifly url
 - replace netlify url with my own domain url
 - change netlify to create temp preview urls for branches
 - maybe disable auto redeploy until have an MVP
@@ -294,4 +292,9 @@ Add snippet to readme to always display status of latest build
 
 # Changelog:
 
--
+- 211810
+	- fix readme
+	- replace netlify url with custom netifly url
+	- deployments
+
+
