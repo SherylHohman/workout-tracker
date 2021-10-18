@@ -4,12 +4,12 @@ by Sheryl Hohman copyright 2021
 ## This app is a personal project for recording workouts and showing stats  
 ### Test this app out at:  
 
-(netlify - automatically deploys the latest pushed code)  
+ - (netlify - automatically deploys the latest pushed code)  
 	[![Netlify Status](https://api.netlify.com/api/v1/badges/45895dff-5c1a-4a2e-8326-0694ff5c7276/deploy-status)](https://app.netlify.com/sites/sheryl-workout-tracker/deploys)  
 	[workout-tracker (netlify deployment)](https://inspiring-lamarr-c3d3fa.netlify.app)  
 	`https://inspiring-lamarr-c3d3fa.netlify.app`    
 
-(vercel - less frequently updated)  
+ - (vercel - less frequently updated)  
 	[workout-tracker (vercel deployment)](https://workout-tracker-five.vercel.app)  
 	(`https://workout-tracker-five.vercel.app`)  
 
@@ -230,13 +230,18 @@ Add snippet to readme to always display status of latest build
 
 # Roadmap:
 
-..
+- MVP
+  (see ToDo's until have an MVP)
 
 ===========================
 
 # TODO:
 
+- fix tooling: create-react-app apparantly included 
+  25 security alerts! (github dependabot alerts)
+  
 - fix readme
+
 - get a basic CSS framework for initial styling
   top contenders:  
   (both can be used immediately via CDN link,
