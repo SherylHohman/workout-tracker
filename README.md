@@ -10,7 +10,15 @@
 
 -------
 Test this app out at:
-	[https://workout-tracker-five.vercel.app](https://workout-tracker-five.vercel.app)
+(netlify - automatically deploys the latest pushed code)
+
+	[workout-tracker (netlify deployment)](https://inspiring-lamarr-c3d3fa.netlify.app)  
+	[![Netlify Status](https://api.netlify.com/api/v1/badges/45895dff-5c1a-4a2e-8326-0694ff5c7276/deploy-status)](https://app.netlify.com/sites/inspiring-lamarr-c3d3fa/deploys)  
+	(`https://inspiring-lamarr-c3d3fa.netlify.app`)  
+
+(vercel - less frequently updated)  
+	[workout-tracker (vercel deployment)](https://workout-tracker-five.vercel.app)  
+	(`https://workout-tracker-five.vercel.app`)  
 
 ----------------------------------------
 # Getting Started with Create React App
@@ -99,6 +107,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 #### (How to deploy via vercel)  
 
+No Git (GitHub, GitLab, or Bitbucket) required.  
+  can deploy from any local project directory.
+Must manually trigger a redeploy from the command line.
+
 One Time Only:  
 1. Sign up for an account at vercel.com  
 	github or gitlab or email, I think are the options  
@@ -121,4 +133,60 @@ One Time Per Project:
 After any code changes:  
 6.  `vercel --prod`  
 	re-builds, and re-deploys  
+
+
+### Deployed app (via netlify):  
+  
+  
+  
+  Automatically rebuilt and redeployed everytime github repository `main` branch gets updated  
+  Can be **public** or **private** repository.
+  But for SelfHosted GitHub/GitLab, need paid account.
+  
+#### (How to deploy via netlify)  
+
+1. sign up at netlify.  
+	Can use github, gitlab, or email  
+2.  Click "New site from Git"  
+3. (continuous deployment): select a provider:  
+	GitHub, GitLab, Bitbucket  
+4.  authorize github  
+5.  Where to install Netlify?
+		choose team (subaccount ie sh, hartmanproducts, fulkrum, etc):  
+		(SherylHohman)  
+6.  choose **ONLY SELECTED REPOSITORIES**  
+7.  choose repo (workout-tracker)   
+8.  click install  
+
+Here is the link my netlify dashboard for workout-tracker app:
+  https://app.netlify.com/start/repos/SherylHohman%2Fworkout-tracker
+
+9.  in netlify, refresh page until app shows up.
+10.  click the app to go to the netlify dashboard for the app
+11.  review deploy settings  (auto detected settings should work)  
+      - branch name (main)
+	  - build       ()
+	  - build directory (build)
+12.  Click Deploy
+13.  New Site link will appear on the top of the redirected page
+
+  
+> Your site is deployed: Try a test build and deploy, directly from your Git repository or a folder.  
+  
+  
+Here is my netlify deployed app workout-tracker 
+  https://inspiring-lamarr-c3d3fa.netlify.app
+  
+>You can change a site’s default Netlify subdomain by selecting the Options button next to the subdomain in the Custom domains panel, then selecting Edit site name in the dropdown.
+  
+Can change to a custom domain from netlify app dashboard:
+(will need to do some domain configuration though, unless buy domain through them - they'll do it automatically)
+	https://app.netlify.com/sites/inspiring-lamarr-c3d3fa/settings/domain/setup
+
+
+Add snippet to readme to always display status of latest build
+>This image automatically updates to reflect the current state of your latest production deploy. You can use the markdown snippet below to add it to your project README.
+```
+[![Netlify Status](https://api.netlify.com/api/v1/badges/45895dff-5c1a-4a2e-8326-0694ff5c7276/deploy-status)](https://app.netlify.com/sites/inspiring-lamarr-c3d3fa/deploys)
+```
 
