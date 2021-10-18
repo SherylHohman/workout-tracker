@@ -1,4 +1,4 @@
-# workout-tracker by Sheryl Hohman copyright 2021
+# workout-tracker by Sheryl Hohman copyright 2021  
 
 ## This app is for recording workouts and showing stats  
 
@@ -8,6 +8,9 @@
 
 #### I might even add AI stats  
 
+-------
+Test this app out at:
+	[https://workout-tracker-five.vercel.app](https://workout-tracker-five.vercel.app)
 
 ----------------------------------------
 # Getting Started with Create React App
@@ -80,3 +83,42 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+------------------------------------------------  
+## SH Notes:  
+
+### Deployed app (via vercel):  
+🔗  Linked to sherylhohman/workout-tracker  
+		(created .vercel and added it to .gitignore)  
+🔍  Inspect: https://vercel.com/sherylhohman/workout-tracker/9DDSf9n1u7eXa48M3Rt2jtxLRLvX [1s]  
+✅  Production: https://workout-tracker-five.vercel.app [copied to clipboard] [59s]  
+📝  Deployed to production.   
+		Run `vercel --prod` to overwrite later (https://vercel.link/2F).  
+💡   To change the domain or build command,  
+		go to https://vercel.com/sherylhohman/workout-tracker/settings  
+
+#### (How to deploy via vercel)  
+
+One Time Only:  
+1. Sign up for an account at vercel.com  
+	github or gitlab or email, I think are the options  
+
+From command line in project directory:  
+
+One Time Per Project:  
+2. `npm install -g vercel`  
+3. `vercel login`  
+	only need to do this 1 time/project  
+	(if used github to sign up, use email associated with github)  
+4. check email account,  
+   Confirm email that was sent from the vercel login step  
+5. `vercel`  
+   First time it is run on any project it runs setup  
+   Can just press enter to accept the defaults on all Q's  
+   --> they return the live link  
+   --> (and a link my dashboard for this project on their website)  
+ 
+After any code changes:  
+6.  `vercel --prod`  
+	re-builds, and re-deploys  
+
