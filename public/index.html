@@ -2,19 +2,77 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon"sizes="48x48 "href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
+    <!-- TODO: update theme color and background, and do the same in the app.manifest file, whenever I decide on a color theme  -->
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="Workout Tracker by Sheryl is a Web app created using create-react-app to log some basic workout data, perform historical statistics, predictions, and plans to help keep on track of a certain type of timing workout goal."
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+    <!-- FAVICON as per https://karloespiritu.github.io/cheatsheets/favicon/ -->
+    <!-- I have commented out sizes I do not currently have
+          TODO: add these sizes when create a *real* icon for this app
+    -->
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+        <!-- <link rel="apple-touch-icon" sizes="57x57" href="%PUBLIC_URL%/apple-touch-icon-57x57.png"> -->
+        <!-- <link rel="apple-touch-icon" sizes="60x60" href="%PUBLIC_URL%/apple-touch-icon-60x60.png"> -->
+    <!-- For first- and second-generation iPad: -->
+        <!-- <link rel="apple-touch-icon" sizes="72x72" href="%PUBLIC_URL%/apple-touch-icon-72x72.png"> -->
+        <!-- <link rel="apple-touch-icon" sizes="76x76" href="%PUBLIC_URL%/apple-touch-icon-76x76.png"> -->
+    <!-- For iPhone with high-resolution Retina display running iOS ≤ 6: -->
+        <!-- <link rel="apple-touch-icon" sizes="114x114" href="%PUBLIC_URL%/apple-touch-icon-114x114.png"> -->
+    <!-- For iPhone with high-resolution Retina display running iOS ≥ 7: -->
+        <!-- <link rel="apple-touch-icon" sizes="120x120" href="%PUBLIC_URL%/apple-touch-icon-120x120.png"> -->
+    <!-- For iPad with high-resolution Retina display running iOS ≤ 6: -->
+        <!-- <link rel="apple-touch-icon" sizes="144x144" href="%PUBLIC_URL%/apple-touch-icon-144x144.png"> -->
+    <!-- For iPad with high-resolution Retina display running iOS ≥ 7: -->
+        <!-- <link rel="apple-touch-icon" sizes="152x152" href="%PUBLIC_URL%/apple-touch-icon-152x152.png"> -->
+    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/apple-touch-icon-180x180.png">
+
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/favicon-194x194.png" sizes="194x194">
+        <!-- I do not have this size  -->
+        <!-- <link rel="icon" type="image/png" href="%PUBLIC_URL%/favicon-96x96.png" sizes="96x96">  -->
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/favicon-16x16.png" sizes="16x16">
+
+    <!-- I have these sizes, that is not included in karlo list. Rem to add it to manifest -->
+    <link rel="icon" type="image/png" sizes="512x512" href="%PUBLIC_URL%/favicon-512x512.png" >
+    <link rel="apple-touch-icon" sizes="512x512" href="%PUBLIC_URL%/andtoid-chrome-512x512.png">
+
+      <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json"> -->
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+
+    <!-- TODO: Replace below with app colors and missing file -->
+    <meta name="msapplication-TileColor" content="#000000">
+        <!-- I do not have this size, or maybe even this file!  -->
+        <!-- <meta name="msapplication-TileImage" content="/mstile-144x144.png"> -->
+    <meta name="theme-color" content="#000000">
+
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!-- verify the mainfest: DevTools -> Application Tab -> mainfest -->
+    <!-- RE: err mssg under Installability: RE: Service Workers
+            "No matching service worker detected...check the scopte of the service worker
+                for the current page encloses the scope and start URL from the manifest."
+            TODO: fix, See:
+              - https://create-react-app.dev/docs/making-a-progressive-web-app/
+              Here is another link explaining they are used for background synch, and
+                useful when connection goes offline.
+                Also explains how they are used in React
+                and specifically create-react-app creation of one.
+                Tells how to set it up for dev and/orroduction
+              - https://blog.bitsrc.io/using-service-workers-with-react-27a4c5e2d1a9
+              Another explanation and solution here (Oct 2019 post)
+              - https://devwho.medium.com/custom-service-worker-in-cra-create-react-app-3b401d24b875
+              Finally, another link from create-react-app.dev
+              - https://create-react-app.dev/docs/making-a-progressive-web-app/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/app.webmanifest">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.

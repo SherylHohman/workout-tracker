@@ -243,6 +243,10 @@ Add snippet to readme to always display status of latest build
    or installed to project via npm
   )
   
+  - also import new-css-reset.css
+  - and normalize.css
+	Put normalize import first, then new-css-reset, then styles.
+  
   - Bulma.io 
     (cons: 
 	 - hard to change primary colors (install sass system & rebuild the library)
@@ -276,17 +280,48 @@ Add snippet to readme to always display status of latest build
 	and
 	`<meta name="viewport" content="width=device-width, initial-scale=1">
 	 
-- replace default create-react-app with my App name (anything else)
+
+- wire app to 
+	https://SherylHohman.github.io/workout-tracker  
+		Can I do that with GitHub Pages? I STILL have not been able to figure out GitHub Pages!
+		Maybe it can only host docs?
+		Ideally, it could host running app AND docs!
+	Then update website in the "About" section of my github page.
+	That's the default website, but 
+	for now, I'll change the About website link to netlify's deployment.
 
 - replace netlify url with my own domain url
 - change netlify to create temp preview urls for branches
-- maybe disable auto redeploy until have an MVP
 
+- maybe disable auto redeploy until have an MVP?
 - start working on a dev branch  
+  
+-- LATER TODO's
+	- edit manifest.json, or app.manifest, or whatever I called it.
+		change name, and colors, and remove comments to turn it back into a true json
+	- remove all these teaching/learning comments from the sourece code!! :-((
+		Unfortunately, I have an obsession worrying about "loosing" stuff :-((
+		  (Also why TOO MANY COMMENTS / documentation :-(( )
+		  Maybe one day I'll find a good, positive use for all these notes.
+		  Like maybe turn them all into blog posts.
+		  ...then I could DELETE the comments? (or maybe include a link to the post, JIC ;-) )
 
 ===========================
 
 # Changelog:
+
+- 211019
+	- rendered app shows my (TEMP) app name and a (TEMP) logo
+		instead of the default React Logo, et.al.
+	- deleted most of the styles in App.js
+	- replaced icons with my own (in index.html and in public folder)
+	- replaced the manifest file with my own in the public folder)
+		Renamed and updated with my (TEMP) info. 
+		Was manifest.json. Now app.manifest. 
+		(I added comments I did not want to "officially" call it a json file :-/ )
+		Added tons of comments explaining the fields :-(
+		(TODO: delete the comments)
+		(TODO: REM to eventually update the name, background_color and app color)
 
 - 211810 5:30p Fix Tooling - create-react-app dependency Warnings
 	moved `react-scripts` in package.json and package-lock.json
