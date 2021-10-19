@@ -237,10 +237,6 @@ Add snippet to readme to always display status of latest build
 
 # TODO:
 
-- fix tooling: create-react-app apparantly included 
-  25 security alerts! (github dependabot alerts)
-  
-
 - get a basic CSS framework for initial styling
   top contenders:  
   (both can be used immediately via CDN link,
@@ -292,7 +288,28 @@ Add snippet to readme to always display status of latest build
 
 # Changelog:
 
-- 211810
+- 211810 5:30p Fix Tooling - create-react-app dependency Warnings
+	moved `react-scripts` in package.json and package-lock.json
+	    from dependency to devDependency.
+		This should remove some reported "warnings" and "vulnerabilities".
+		Here are some links on the info:
+		- Here is the Merged fix on github. It will be in the next release
+			https://github.com/BattlesnakeOfficial/board/pull/29
+		- Here is the explanation about the so-called "vulnerabilities" that are reported by npm.
+			(Dan Abramov on a CRA github issue):
+			https://github.com/facebook/create-react-app/issues/11174
+		- Here is an explanation on how to update CRA in general:
+			just update the `react-scripts` version number in `package.json`. 
+			In this case, just move `react-scripts` to `devDependancies`
+			Then run `npm install` to update the packages accordingly.
+			https://create-react-app.dev/docs/updating-to-new-releases/
+			
+		In the end, even after npm install, I still have the same 21 moderate, 45 high, and 2 critical "vulnerabilities"
+			But I am confident that they are not ACTUAL issues.
+			I do NOT need up update any packages.
+			No matter what GitHub Dependabot and NPM are telling me!
+
+- 211810 11:30a
 	- fix readme
 	- replace netlify url with custom netifly url
 	- deployments
