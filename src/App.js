@@ -1,4 +1,5 @@
 import './App.css';
+import AddWorkout from './Components/AddWorkout';
 
 // In general it is preferential to import images into the modules as needed.
 // Added benefit: The build breaks on missing images,
@@ -31,6 +32,7 @@ function App() {
         <img src={flower_logo} className="App-logo" alt="logo" />
         By Sheryl Hohman
       </header>
+      <AddWorkout />
     </div>
   );
 }
