@@ -294,7 +294,6 @@ Add snippet to readme to always display status of latest build
 - change netlify to create temp preview urls for branches
 
 - maybe disable auto redeploy until have an MVP?
-- start working on a dev branch  
   
 -- LATER TODO's
 	- edit manifest.json, or app.manifest, or whatever I called it.
@@ -309,6 +308,19 @@ Add snippet to readme to always display status of latest build
 ===========================
 
 # Changelog:
+
+- 211019
+    - add css folder to public and put normalize.css, the-new-css-reset.css
+        Also added the bulma.css file there. (  bulma.io)
+        pure.css I am loading from a CDN        (purecss.io)
+    - added css link tags to head of index.html file
+
+    - TODO: decide on a framework, and "css reset" option
+            npm install chosen css reset package(s)
+            npm install chosen framework
+            import the chosen css files to my App.js react component
+            delete the css file from public folder (or move to src)
+            delete their link tag "imports" from public/index.html
 
 - 211019
 	- rendered app shows my (TEMP) app name and a (TEMP) logo

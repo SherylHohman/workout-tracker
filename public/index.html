@@ -82,6 +82,32 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+
+    <!-- TEMP put these stylesheets here.
+         Once I decide what I plan to do for styles...
+      TODO: run
+                npm install normalize.css
+                npm install the-new-css-reset
+                npm install (whichever framework I choose)
+                npm install bulma
+            then import them in that order to the React app entry point
+            delete these link files
+            delete the files from the public folder
+    -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- <link rel="stylesheet" href="css/the-new-css-reset.css"> -->
+
+    <!-- PurCcss: To test out pure.io styling, use  -->
+    <!-- Normalize.css is performed at the base of pure.io and
+        built up from there. It is duplicitory to include normalize when
+        using this library.
+    -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/build/pure-min.css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous"> -->
+
+    <!-- Bulma.css: To test out bulma.io styling, use  -->
+    <!-- <link rel="stylesheet" href="css/bulma.min.css"> -->
+
     <title>React App</title>
   </head>
   <body>
