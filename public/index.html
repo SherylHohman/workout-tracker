@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon"sizes="48x48 "href="%PUBLIC_URL%/favicon.ico" />
+    <!-- Needed for responsiveness. Most css frameworks require this. Added by CRA. -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <!-- TODO: update theme color and background, and do the same in the app.manifest file, whenever I decide on a color theme  -->
@@ -95,18 +96,26 @@
             delete the files from the public folder
     -->
     <link rel="stylesheet" href="css/normalize.css">
+    <!-- This is Meyers hard reset - the orig css-reset. It may be useful for older browsers, if I otherwise decide to use the new-css-reset, incase older browsers do not understand the new css syntax -->
+    <!-- <link rel="stylesheet" href="css/hard-old-css-reset.css"> -->
     <!-- <link rel="stylesheet" href="css/the-new-css-reset.css"> -->
 
-    <!-- PurCcss: To test out pure.io styling, use  -->
-    <!-- Normalize.css is performed at the base of pure.io and
-        built up from there. It is duplicitory to include normalize when
-        using this library.
-    -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/build/pure-min.css">
-    <!-- <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous"> -->
-
     <!-- Bulma.css: To test out bulma.io styling, use  -->
-    <!-- <link rel="stylesheet" href="css/bulma.min.css"> -->
+    <link rel="stylesheet" href="css/bulma.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"> -->
+
+    <!-- PurCcss: To test out pure.io styling, use  this/
+            Note: Normalize.css is performed at the base of pure.io and
+             built up from there. It is duplicitous to include normalize when
+            using this library.
+    -->
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/build/pure-min.css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+
+    <!-- Semantic UI.
+        See this page for more info on docs locally, installing https://semantic-ui.com/introduction/advanced-usage.html -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+
 
     <title>React App</title>
   </head>
