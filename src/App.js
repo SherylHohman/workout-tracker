@@ -1,7 +1,7 @@
 import './App.css';
 import AddWorkout from './Components/AddWorkout';
 // TEMP EXPERIMENT:
-//import TestStyles from './y-experimentation/forms-css-component.js';
+//import TestStyles from './y-experimentation/css-forms/forms-css-component.js';
 
 // In general it is preferential to import images into the modules as needed.
   // Added benefit: The build breaks on missing images,

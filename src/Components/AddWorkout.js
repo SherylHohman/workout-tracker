@@ -1,24 +1,171 @@
 import React from "react";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+
 
 class AddWorkout extends React.Component {
 
-    state = {
-        hours:          '',
-        minutes:        '',
-        location:       '',
-        exerciseType:   'Get Moving!',
-        dayOfWeek:      'Tue',
-        month:          'Oct',
-        dayofMonth:     '27',
-        year:           '2021'
-    };
+  // state = {
+    //     hours:          '',
+    //     minutes:        '',
+    //     location:       '',
+    //     exerciseType:   'Get Moving!',
+    //     dayOfWeek:      'Tue',
+    //     month:          'Oct',
+    //     dayOfMonth:     '27',
+    //     year:           '2021',
+    //     calendarValue:  new Date()
+    // };
+    // TODO: in state, only need to store a Date object.
+    //       Then locally, extract out the values that I will use on the page.
+    //       Everything in the database should be stored as standard JS date objects
+    //       Well, elapsed time, maybe not.
+    // TODO: Need fields for stop & start exercise times, plus default values
+    //        for when I do not actually record this data.
+    //        rem: the start-stop time may be LONGER than the elapsed workout time.
+    //      Need values for cycling, running, and misc cardio equipment.
+    //        distance (eg miles), average speed, max speed, ODO reading.
+    //        Name of equipment used (MB4, Trek;  stairmaster, specific brand of elliptical;
+    //        calesthenics, free weights; stretch vs yoga vs qui gong)
 
-    onChangeDate = (event) => {
-        console.log(event.target.name);
-        console.log(event.target.value);
-        console.log(event.target.id);
-        this.setState({});
+    // how shall I store the elapsed exercise time in the DB?
+    //  as total minutes? As some combo of fields like hours, minutes, (seconds?)
+    //  some JS Date object, eg "total time since 1970"
+    //  but its elapsed exercise time, not time since EPOCH?
+    //  For now lets say minutes.
+
+    // ideally, would defaults for
+      //  duration, location, exerciseType... would be
+      //  the last used, the most frequently used (recently anyway),
+      //  or some prediction on what will be next entered
+
+  state = {
+      exerciseTotalMinutes: '',
+      exerciseType:   'Get Moving!',  // cardio, weights, stretch, other/outdoor
+      calDate:         new Date(),
+      location:       '',
+
+      // This was recorded for many years.
+      //  In fact it was tied to a 4th Category!
+      //  (outdoors, or ANY alternate activity: skating, walking outside)
+      //    I had set a goal of doing something like that like
+      //    1 or 2/week, or maybe 30 min/week. Particularly in McNaughton era
+      //  )
+      outdoors:       'false',
+
+      // only applicable to cardio
+      // (NEEDED for cycling)
+      distanceInMiles:  '',
+      aveMPH:           '',
+      maxMPH:           '',
+
+      // applicable to my home bike (bicycles only)
+      // might even have 2 odometers: 1 per bike
+      // (NEEDED for cycling)
+      odoEnd:           '',
+
+      // applicable to gym cardo machines only
+      //  can enact this later, when actually begin entering old data
+      // aveCadence:       '',
+      // maxCadence:       '',
+      // aveCaloriesBurned:'',
+
+      // only emplement this for my bikes for now
+      equipment:        'MB4',
+        // for now: MB4, none, calesthenics/dumbells, gym weight machines,
+        // then:    treadmill, gym cardio machines, Vicount, Trek
+
+        // MB4, Trek, Vicount, gymElliptical, gymRecumbant, gymUprightBike
+        // treadmill, none (eg outdoor running, walking)
+        // outdoors vs indoors (cycling inside vs outside, )
+
+      // I did record this for a few years!!
+      //  sometimes as an exact time, sometimes as morn, night, afternoot, etc
+      //  Will want this implemented before get to those records! DRY data entry.
+        // startTime:   '',  // TODO
+        // stopTime:    ''   // TODO
+        // note: stop-start can be > exercise duration
+  };
+
+  // utility conversion functions
+  toHHMM(totalMinutes){
+    // hh can be a float or integer. mm must be an integer
+    // normalizes to max hr, and  mm < 60
+    // normalize to integer hours and minutes, keeping minutes < 60
+    const hh = Math.trunc(totalMinutes/60);
+    const mm = totalMinutes % 60;
+    return [hh, mm];
+  }
+  toTotalMinutes(hh, mm){
+    // returns sum of hh + mm as total minutes as an Integer
+    // hh can be entered as a decimal value eg 1.25hr, or an integer, or string
+    // mm should be an integer (or string) (maybe round JIC get some decimal value??)
+    // input can be STRING or Integer or Float (or null or empty string)
+    // NOTE: assumes a string only contains numbers or an optional decimal point.
+        // an error will occur elsewise.
+        // an odd bug not throwing an error will result if certain chars
+        // are not stripped letters off: parseFloat/parseInt might convert
+        // to oOctal, hex, insted. To avoid that, supply 2nd param of 10
+        // also JIC could re-strip the numbers.
+    const totalMinutes = parseFloat(hh || 0) * 60 +
+                           parseInt(mm || 0);
+    // JS float plus irrational numbers require rounding to closest integer
+    return Math.round(totalMinutes);
+  }
+  normalizeHHMM(hh, mm){
+    //  input can be string representations or numbers, where
+    //    hh is float or integer (or stripped string representation),
+    //    mm is integer (or stripped string representation of int)
+    //  returns normalized integer values of hh and mm
+    //  eg 1.25hr + 15 minutes is returned as 1hr 30min
+    //  ie an [hh, mm] array of: [1, 30]
+    return toHHMM(toTotalMinutes(hh, mm));
+  }
+
+  //const [value, onChange] = useState(new Date());
+
+  componentDidMount(props){
+    // set initial default calendar date to the time at component's initial mount.
+    //  This can then be changed through the calendar or input fields.
+    //  but is set/initialized as the current time only once: here!
+    const calDate= new Date();
+    console.log("componentDidMount, new calDate:", calDate);
+
+    this.setState({
+      calDate: calDate,
+    });
+    console.log("componentDidMount, state:", this.state);
+  }
+
+    // trying to get react-calendar to work
+      //  do not understand its API. Also it defaults to using hooks,
+      //  which are not compatible with this class-based Component
+      //  I THINK, though, that he has some "controlled component" methods
+      //  that can be used instead, but the docs are difficult to figure out, if so
+    onCalendarChange = (event) => {
+      //OK, I do not think I can figure this out.
+      // installed the calendar via
+      // npm install react-calendar
+      // may need to UNINSTALL it
+      // It uses hooks, which are not compatible with class components
+      // Can either: use a different calendar,
+      //  refactor this component to use hooks,
+      //  or wrap their hooks
+      //  or figure out their API to use class Component.
+      // Long term: refactor to Addworkout to functional component/hooks
+      //  Short term.. use now, refactor later.
+      console.log(event);
+      const value = event.target.value;
+      // this.setState({calendarValue: new Date()});
+      this.setState({calendarValue: new Date(value)});
     }
+
+    // onChange = (event) => {
+    //     console.log(event.target.name);
+    //     console.log(event.target.value);
+    //     console.log(event.target.id);
+    //     this.setState({});
+    // }
 
      toIntegerDigitsOnly = (str) => {
         str = str.replace(/\D/g,'');
@@ -117,6 +264,58 @@ class AddWorkout extends React.Component {
 
     render() {
 
+
+
+  // NEW VERSION OF CODE. Refactor Render fUnction to use this instead
+    const exerciseLocation = this.state.location;
+    // TODO specific equipment used (MB4, Vicount, Trek, elliptical + brand)
+      //  also city, country, state (past workouts)
+      //  also name of club (24hour fit generally, home, hotel, outside)
+      //  currently what I will store is only the specific place
+      //    (24 SC, 24 Antioch, The Gym Rio Vista, home trailer park, "home Landaiche")
+      //    Note that the specific locations automatically encode City, Business Name, et al
+      //    it is simply a matter of setting up the various data associated with each
+      //    so that can run stats on the broader categories, rather than just the specific ones.
+      //    All that data can be input later by the user. And by me, the programmer.
+
+      const duration = this.state.exerciseTotalMinutes;
+      const [exerciseHH, exerciseMM] = toHHMM(duration);
+      // currently I do not record seconds.
+      //  But when running, sometimes did..
+      //  exerciseElapsedSeconds ?
+
+      const calDate     = this.state.calDate;
+      const year        = calDate.getFullYear();
+      const month       = calDate.getMonth();
+      const monthText   = months[month];
+      const dateInMonth = calDate.getDate();
+      const dayOfWeekText  = days[calDate.getDay()];
+
+      // Do not implement yet ? Not sure if Calendars even support this
+      // const startTime_hh   =    calDate.getHours(),
+      // const startTime_mm   =    calDate.getMinutes(),
+      // TBS, could just use input boxes. Pre-populate with current time
+      //    allow user to change it manually.
+    // }
+    // These should be local variables, not ultimately store in the database,
+        // nor even in state. Can provide a utility function for pulling out these
+        // values from the state Date object.
+        // should be recalculated every time the component re-renders
+        // due to a state change. (well, everytime the state.calDate value changes)
+        // so maybe it needs to be in the render function.
+        // Do I need them anywhere else? Think only relevent in render.
+
+    const days   = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    hours  :    calDate.getHours(),
+    minutes:    calDate.getMinutes(),
+    dayOfWeek:  days[calDate.getDay()],
+    dayOfMonth: months[calDate.getDate()],
+    year:       calDate.getFullYear()
+
+  // SOME OF THE BELOW has been replaced with above.
+        // Need to refactor render code to use the replacements
+        //  then delete what is no longer needed.
         const dateString = this.state.dayOfWeek + ' ' + this.state.dayofMonth + ' ' + this.state.month + ' ' + this.state.year;
 
         // adds minutes and hours fields (note:  hours can be fractional, eg 1.5 hr)
@@ -132,6 +331,8 @@ class AddWorkout extends React.Component {
         const leftoverMinutesStr = leftoverMinutes<10 ? '0' + leftoverMinutes.toString() : leftoverMinutes.toString();
         const totalTime = wholeHours.toString() + ':' + leftoverMinutesStr;
         const totalTime2 = (wholeHours + (leftoverMinutes/60)).toFixed(2).toString();
+
+  //  End local Render helper functions
 
         return(
            <section>
@@ -236,6 +437,11 @@ class AddWorkout extends React.Component {
                       />
                     </fieldset>
 
+                    <Calendar
+                      onChange={this.onCalendarChange}
+                      value={this.state.calendarValue}
+                    />
+
                     <button>Add Workout</button>
                     {/*HA! onSubmit is attached to the FORM, NOT the button!*/}
 
@@ -243,8 +449,8 @@ class AddWorkout extends React.Component {
             </section>
         );
     }
-
 }
+
 
 export default AddWorkout;
 
@@ -275,8 +481,8 @@ export default AddWorkout;
           //          styling :                       http://react-day-picker.js.org/docs/styling
           //          first day:                      http://react-day-picker.js.org/docs/localization
 
-        // React Calendar
-          // React Date Picker
+        // React Calendar AND
+        // React Date Picker
           //  https://github.com/wojtekmaj/react-calendar
           //      ALSO HAS (easy to confuse them!! - additionally time pickers too)
           //  https://github.com/wojtekmaj/react-date-picker
