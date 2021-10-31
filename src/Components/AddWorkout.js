@@ -82,8 +82,8 @@ class AddWorkout extends React.Component {
       // I did record this for a few years!!
       //  sometimes as an exact time, sometimes as morn, night, afternoot, etc
       //  Will want this implemented before get to those records! DRY data entry.
-        // startTime:   '',  // TODO
-        // stopTime:    ''   // TODO
+        startTime:   '',  // TODO
+        stopTime:    ''   // TODO
         // note: stop-start can be > exercise duration
   };
 
@@ -119,7 +119,7 @@ class AddWorkout extends React.Component {
     //  returns normalized integer values of hh and mm
     //  eg 1.25hr + 15 minutes is returned as 1hr 30min
     //  ie an [hh, mm] array of: [1, 30]
-    return toHHMM(toTotalMinutes(hh, mm));
+    return this.toHHMM(this.toTotalMinutes(hh, mm));
   }
 
   //const [value, onChange] = useState(new Date());
@@ -166,6 +166,21 @@ class AddWorkout extends React.Component {
     //     console.log(event.target.id);
     //     this.setState({});
     // }
+    onChangeStartTimeHr = (event) => {
+      // rolls over: nieve quick hack to keep input value from 0-11 (AM/PM)
+      const hr = event.target.value % 12
+      this.setState({startTimeHr: hr});
+    }
+
+    onChangeStartTimeMin = (event) => {
+      // rolls over: nieve quick hack to keep input value from 0-59
+      const min = event.target.value % 60;
+      this.setState({startTimeHr: min});
+    }
+    onChangeAMorPM = (event){
+      // breaks: change from input box to radio button so cannot have bad input
+      // allowed values are 'AM' or 'PM' (or maybe this should be lower case?)
+    }
 
      toIntegerDigitsOnly = (str) => {
         str = str.replace(/\D/g,'');
@@ -266,71 +281,66 @@ class AddWorkout extends React.Component {
 
 
 
-  // NEW VERSION OF CODE. Refactor Render fUnction to use this instead
-    const exerciseLocation = this.state.location;
-    // TODO specific equipment used (MB4, Vicount, Trek, elliptical + brand)
-      //  also city, country, state (past workouts)
-      //  also name of club (24hour fit generally, home, hotel, outside)
-      //  currently what I will store is only the specific place
-      //    (24 SC, 24 Antioch, The Gym Rio Vista, home trailer park, "home Landaiche")
-      //    Note that the specific locations automatically encode City, Business Name, et al
-      //    it is simply a matter of setting up the various data associated with each
-      //    so that can run stats on the broader categories, rather than just the specific ones.
-      //    All that data can be input later by the user. And by me, the programmer.
+    // NEW VERSION OF CODE. Refactor Render fUnction to use this instead
 
-      const duration = this.state.exerciseTotalMinutes;
-      const [exerciseHH, exerciseMM] = toHHMM(duration);
-      // currently I do not record seconds.
-      //  But when running, sometimes did..
-      //  exerciseElapsedSeconds ?
+      // const exerciseLocation = this.state.location;
+      // TODO specific equipment used (MB4, Vicount, Trek, elliptical + brand)
+        //  also city, country, state (past workouts)
+        //  also name of club (24hour fit generally, home, hotel, outside)
+        //  currently what I will store is only the specific place
+        //    (24 SC, 24 Antioch, The Gym Rio Vista, home trailer park, "home Landaiche")
+        //    Note that the specific locations automatically encode City, Business Name, et al
+        //    it is simply a matter of setting up the various data associated with each
+        //    so that can run stats on the broader categories, rather than just the specific ones.
+        //    All that data can be input later by the user. And by me, the programmer.
 
-      const calDate     = this.state.calDate;
-      const year        = calDate.getFullYear();
-      const month       = calDate.getMonth();
-      const monthText   = months[month];
-      const dateInMonth = calDate.getDate();
-      const dayOfWeekText  = days[calDate.getDay()];
+        const duration = this.state.exerciseTotalMinutes;
+        // currently I do not record seconds.
+        //  But when running, sometimes did..
+        //  store instead as exerciseElapsedSeconds ?
+        // const [exerciseHH, exerciseMM] = toHHMM(duration);
+        const [durationHH, durationMM] = this.toHHMM(duration);
 
-      // Do not implement yet ? Not sure if Calendars even support this
-      // const startTime_hh   =    calDate.getHours(),
-      // const startTime_mm   =    calDate.getMinutes(),
-      // TBS, could just use input boxes. Pre-populate with current time
-      //    allow user to change it manually.
-    // }
-    // These should be local variables, not ultimately store in the database,
-        // nor even in state. Can provide a utility function for pulling out these
-        // values from the state Date object.
-        // should be recalculated every time the component re-renders
-        // due to a state change. (well, everytime the state.calDate value changes)
-        // so maybe it needs to be in the render function.
-        // Do I need them anywhere else? Think only relevent in render.
+        const days   = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
-    const days   = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-    hours  :    calDate.getHours(),
-    minutes:    calDate.getMinutes(),
-    dayOfWeek:  days[calDate.getDay()],
-    dayOfMonth: months[calDate.getDate()],
-    year:       calDate.getFullYear()
+        const calDate     = this.state.calDate;
+        const year        = calDate.getFullYear();
+        const month       = calDate.getMonth();
+        const monthText   = months[month];
+        const dateInMonth = calDate.getDate();
+        const dayOfWeekText  = days[calDate.getDay()];
 
-  // SOME OF THE BELOW has been replaced with above.
+        const startTimeMin = calDate.getMinutes();
+        let startTimeHr    = calDate.getHours();
+        let AMorPM         = 'AM';
+        // (assumes any value input has been normalized 0-23,
+        //  make sure onChange Input handles bad input, or perform Hr % 24)
+        if (startTimrHr >= 12) {
+          AMorPM = 'PM';
+          startTimeHr = startTimeHr - 12;
+        }
+
+        // Do not implement yet ? Not sure if Calendars even support this
+        // const startTime_hh   =    calDate.getHours(),
+        // const startTime_mm   =    calDate.getMinutes(),
+        // TBS, could just use input boxes. Pre-populate with current time
+        //    allow user to change it manually.
+      // }
+
+    // SOME OF THE BELOW has been replaced with above.
         // Need to refactor render code to use the replacements
         //  then delete what is no longer needed.
-        const dateString = this.state.dayOfWeek + ' ' + this.state.dayofMonth + ' ' + this.state.month + ' ' + this.state.year;
+        const dateString = this.state.dayOfWeekText + ' ' + // Fri
+                           this.state.dateInMonth + ' ' +   // 29
+                           this.state.monthText + ' ' +     // Oct
+                           this.state.year;                 // 2021
 
-        // adds minutes and hours fields (note:  hours can be fractional, eg 1.5 hr)
-        // note: if had not strip letters off, a prefix parseFloat/parseInt might convert to oOctal, hex, etc, unless supplied 2nd param of 10
-        let totalMinutes = parseFloat(this.state.hours || 0) * 60 + parseInt(this.state.minutes || 0);
-        totalMinutes = Math.round(totalMinutes);
+       // pad MM portion of string with zeros if needed for human readable output strings
+        const padded_MM_str = durationMM<10 ? '0' + durationMM.toString() : durationMM.toString();
 
-        // normalize to integer hours and minutes, keeping minutes < 60
-        const wholeHours = Math.trunc(totalMinutes/60);
-        const leftoverMinutes = totalMinutes % 60;
-
-       // pad minutes with zeros if needed for human readable output strings
-        const leftoverMinutesStr = leftoverMinutes<10 ? '0' + leftoverMinutes.toString() : leftoverMinutes.toString();
-        const totalTime = wholeHours.toString() + ':' + leftoverMinutesStr;
-        const totalTime2 = (wholeHours + (leftoverMinutes/60)).toFixed(2).toString();
+        const duration_clock_str   = durationHH.toString() + ':' + padded_MM_str;
+        const duration_decimal_str = (durationHH + (durationMM/60)).toFixed(2).toString();
 
   //  End local Render helper functions
 
@@ -343,13 +353,13 @@ class AddWorkout extends React.Component {
                     <fieldset>
                       <div>
                         <label>Time</label>
-                        <h3>{totalTime} / {totalTime2}</h3>
+                        <h3>{duration_clock_str} / {duration_decimal_str}</h3>
                       </div>
 
                       <label>Hours</label>
                       <input  type="text" name="hours" id="hours"
                               placeholder="2"
-                              value={this.state.hours}
+                              value={durationHH}
                               onChange={this.onChangeHours}
                       />
                       <button onClick={this.onClearHours}>clear</button>
@@ -358,7 +368,7 @@ class AddWorkout extends React.Component {
                       <label>Minutes</label>
                       <input  type="text" name="minutes" id="minutes"
                               placeholder="20"
-                              value={this.state.minutes}
+                              value={durationMM}
                               onChange={this.onChangeMinutes}
                       />
                       <button onClick={this.onClearMinutes}>clear</button>
@@ -412,7 +422,7 @@ class AddWorkout extends React.Component {
                       <label>Day of Week</label>
                       <input  type="text" name="dayOfWeek" id="dayOfWeek"
                               placeholder="Tue"
-                              value={this.state.dayOfWeek}
+                              value={dayOfWeekText}
                               onChange={this.onChangeDayOfWeek}
                       />
                       <br />
@@ -420,19 +430,42 @@ class AddWorkout extends React.Component {
                       <label>Date in Month</label>
                       <input  type="text" name="date" id="date"
                               placeholder="27"
-                              value={this.state.dayofMonth}
+                              value={dateInMonth}
                               onChange={this.onChangeDayOfMonth}
                       />
                       <label>Month</label>
                       <input  type="text" name="month" id="month"
                               placeholder="Oct"
-                              value={this.state.month}
+                              value={monthText}
                               onChange={this.onChangeMonth}
                       />
                       <label>Year</label>
                       <input  type="text" name="year" id="year"
                               placeholder="2021"
-                              value={this.state.year}
+                              value={year}
+                              onChange={this.onChangeYear}
+                      />
+                    </fieldset>
+
+                    <fieldset>
+                      <p>Start Time</p>
+                      <h3>{{startTimeHr}:{startTimeMin} {AMorPM}</h3>
+                      <label>Hr</label>
+                      <input  type="text" name="month" id="month"
+                              placeholder="5"
+                              value={startTimeHr}
+                              onChange={this.onChangeStartTimeHr}
+                      />
+                      <label>Min</label>
+                      <input  type="text" name="year" id="year"
+                              placeholder="00"
+                              value={startTimeMin}
+                              onChange={this.onChangeStartTimeMin}
+                      />
+                      <label>AM or PM</label>
+                      <input  type="text" name="year" id="year"
+                              placeholder="2021"
+                              value={AMorPM}
                               onChange={this.onChangeYear}
                       />
                     </fieldset>
