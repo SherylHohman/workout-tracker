@@ -7,6 +7,7 @@ class GetWorkoutDate extends React.Component {
 
       //  sometimes as an exact time, sometimes as morn, night, afternoot, etc
       //  Will want this implemented before get to those records! DRY data entry.
+      // should this be stored as a Date object, or a simple HHDD 24 hour object?
         startTime:   '',  // TODO
         stopTime:    ''   // TODO
         // note: stop-start can be > exercise duration
@@ -70,7 +71,7 @@ class GetWorkoutDate extends React.Component {
 
   // ============================
   // UTILITY CONVERSION FUNCTIONS
-  // ============================
+    // ============================
 
     // FOR ENTERING DATES, TIMES
      toIntegerDigitsOnly = (str) => {
@@ -121,6 +122,68 @@ class GetWorkoutDate extends React.Component {
   // EVENT HANDLERS
   // ============================
 
+    // for react-calendar version
+
+        // trying to get react-calendar to work
+      //  do not understand its API. Also it defaults to using hooks,
+      //  which are not compatible with this class-based Component
+      //  I THINK, though, that he has some "controlled component" methods
+      //  that can be used instead, but the docs are difficult to figure out, if so
+    onCalendarChange = (event) => {
+      //OK, I do not think I can figure this out.
+      // installed the calendar via
+      // npm install react-calendar
+      // may need to UNINSTALL it
+      // It uses hooks, which are not compatible with class components
+      // Can either: use a different calendar,
+      //  refactor this component to use hooks,
+      //  or wrap their hooks
+      //  or figure out their API to use class Component.
+      // Long term: refactor to Addworkout to functional component/hooks
+      //  Short term.. use now, refactor later.
+      const value = event.target.value;
+      console.log(value);
+      // this.setState({calendarValue: new Date()});
+      this.setState({calendarValue: new Date(value)});
+    }
+
+    // onChange = (event) => {
+    //     console.log(event.target.name);
+    //     console.log(event.target.value);
+    //     console.log(event.target.id);
+    //     this.setState({});
+    // }
+
+
+    // FOR INPUT DATE, DATETIME-LOCAL, TIME VERSIONS
+    onDateChange = (event) => {
+      // Who knew the browser has date input fields!
+      const value = event.target.value;
+      console.log(value);
+      // this.setState({calendarValue: new Date()});
+      this.setState({calendarValue: value});
+    }
+    onDateTimeLocalChange = (event) => {
+      // Who knew the browser has date input fields!
+      const value = event.target.value;
+      console.log(value);
+      // value is always returned at yyyy-mm-dd, no matter what the browser display is
+      console.log(value);
+      // this.setState({calendarValue: new Date()});
+      this.setState({calendarValue: value});
+    }
+    onTimeChange = (event) => {
+      // Who knew the browser has time input fields!
+      console.log(event.target.value);
+      const value = event.target.value;
+      // this.setState({calendarValue: new Date()});
+      this.setState({startTime: value});
+      // this.setState({startTime: new Date(value)});
+    }
+
+
+    //  TO BE DELETED!
+    // FOR INITIAL, NIEVE  HOME GROWN SEPARATE INPUT FIELDS VERSIONS
     onChangeDayOfWeek = (event) => {
       let newValue = this.toLettersOnly(event.target.value);
       if (newValue.length > 0){
@@ -161,6 +224,8 @@ class GetWorkoutDate extends React.Component {
       this.setState({year: newValue});
     }
 
+
+    // ON SUBMIT
     onSubmit = (event) => {
         event.preventDefault();
         console.log('I have your data:\n', this.state);
@@ -169,15 +234,6 @@ class GetWorkoutDate extends React.Component {
 
   render(props){
 
-    const days   = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-
-    const calDate     = this.state.calDate;
-    const year        = calDate.getFullYear();
-    const month       = calDate.getMonth();
-    const monthText   = months[month];
-    const dateInMonth = calDate.getDate();
-    const dayOfWeekText  = days[calDate.getDay()];
 
 
 
@@ -187,9 +243,12 @@ class GetWorkoutDate extends React.Component {
       // the 3rd party Calendar component I eventually use may only do the DATE
       // but not the TIME.
       // so for now I have code fragments both here and in the parent AddWorkout.js
-    const startTimeMin = calDate.getMinutes();
-    let startTimeHr    = calDate.getHours();
-    let strAMorPM         = 'AM';
+      // Assumes startTime is stored as a full date object.
+      // may prefer to store as a 24hour hhmm object instead.
+      // use state calDate or startTime
+    const startTimeMin = this.state.calDate.getMinutes();
+    let startTimeHr    = this.state.calDate.getHours();
+    let strAMorPM      = 'AM';
     // (assumes any value input has been normalized 0-23,
     //  make sure onChange Input handles bad input, or perform Hr % 24)
     if (startTimeHr >= 12) {
@@ -205,48 +264,10 @@ class GetWorkoutDate extends React.Component {
     // This may need to be its own component
   // }
 
-// SOME OF THE BELOW has been replaced with above.
-    // Need to refactor render code to use the replacements
-    //  then delete what is no longer needed.
-    const dateString = this.state.dayOfWeekText + ' ' + // Fri
-                       this.state.dateInMonth + ' ' +   // 29
-                       this.state.monthText + ' ' +     // Oct
-                       this.state.year;                 // 2021
-    // same format as Date.toDateString() // eg. "Sun Oct 31 2021"
 
     return (
 
       <div className="get-workout-date">
-                    <fieldset>
-                      <h3>{dateString}</h3>
-
-                      <label>Day of Week</label>
-                      <input  type="text" name="dayOfWeek" id="dayOfWeek"
-                              placeholder="Tue"
-                              value={dayOfWeekText}
-                              onChange={this.onChangeDayOfWeek}
-                      />
-                      <br />
-
-                      <label>Date in Month</label>
-                      <input  type="text" name="date" id="date"
-                              placeholder="27"
-                              value={dateInMonth}
-                              onChange={this.onChangeDayOfMonth}
-                      />
-                      <label>Month</label>
-                      <input  type="text" name="month" id="month"
-                              placeholder="Oct"
-                              value={monthText}
-                              onChange={this.onChangeMonth}
-                      />
-                      <label>Year</label>
-                      <input  type="text" name="year" id="year"
-                              placeholder="2021"
-                              value={year}
-                              onChange={this.onChangeYear}
-                      />
-                    </fieldset>
 
                     <fieldset>
                       <p>Start Time</p>
@@ -270,6 +291,28 @@ class GetWorkoutDate extends React.Component {
                               onChange={this.onChangeYear}
                       />
                     </fieldset>
+
+                  {/* TODO:
+                      Maybe experiment later as a backup, or as an
+                      alternate method of entry. Maybe clicking on this will
+                      be used as a trigger to open up the react-calendar picker.
+                      Or just remove altogether.
+                      Also, need to figure out how to properly collect the date
+
+                    <fieldset>
+                      <label> temp test input as calendar</label>
+                      <input type="datetime-local" name="datetime" id="datetime"
+                             value={this.state.calDate}
+                             onChange={this.onCalendarChange}
+                      />
+                      <br />
+                      <label> temp test input as calendar</label>
+                      <input type="time" name="time" id="time"
+                             value={this.state.startTime}
+                             onChange={this.onTimeChange}
+                      />
+                    </fieldset>
+                  */}
 
       </div>
 

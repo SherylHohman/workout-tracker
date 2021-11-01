@@ -4,6 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 
 import GetWorkoutDate from './GetWorkoutDate';
 import SetWorkoutDuration from './SetWorkoutDuration';
+import '../css/sh-custom-react-calendar.css';
 
 
 class AddWorkout extends React.Component {
@@ -105,51 +106,11 @@ class AddWorkout extends React.Component {
     console.log("componentDidMount, state:", this.state);
   }
 
-    // trying to get react-calendar to work
-      //  do not understand its API. Also it defaults to using hooks,
-      //  which are not compatible with this class-based Component
-      //  I THINK, though, that he has some "controlled component" methods
-      //  that can be used instead, but the docs are difficult to figure out, if so
-    onCalendarChange = (event) => {
-      //OK, I do not think I can figure this out.
-      // installed the calendar via
-      // npm install react-calendar
-      // may need to UNINSTALL it
-      // It uses hooks, which are not compatible with class components
-      // Can either: use a different calendar,
-      //  refactor this component to use hooks,
-      //  or wrap their hooks
-      //  or figure out their API to use class Component.
-      // Long term: refactor to Addworkout to functional component/hooks
-      //  Short term.. use now, refactor later.
-      console.log(event);
-      const value = event.target.value;
-      // this.setState({calendarValue: new Date()});
-      this.setState({calendarValue: new Date(value)});
+    onCalendarChange = (date) => {
+      // for react-calendar: it gives me a Date object
+      console.log('selected date:',date);
+      this.setState({calDate: new Date(date)});
     }
-    onDateChange = (event) => {
-      // Who knew the browser has date input fields!
-      console.log(event);
-      const value = event.target.value;
-      console.log(value);
-      // this.setState({calendarValue: new Date()});
-      this.setState({calendarValue: value});
-    }
-    onTimeChange = (event) => {
-      // Who knew the browser has time input fields!
-      console.log(event.target.value);
-      const value = event.target.value;
-      // this.setState({calendarValue: new Date()});
-      this.setState({startTime: value});
-      // this.setState({startTime: new Date(value)});
-    }
-
-    // onChange = (event) => {
-    //     console.log(event.target.name);
-    //     console.log(event.target.value);
-    //     console.log(event.target.id);
-    //     this.setState({});
-    // }
 
     /*
     //FOR START END TIME - Might not stay in this component
@@ -265,15 +226,48 @@ class AddWorkout extends React.Component {
     */
 
 
-    // // SOME OF THE BELOW has been replaced with above.
-    //     // Need to refactor render code to use the replacements
-    //     //  then delete what is no longer needed.
-    //     const dateString = this.state.dayOfWeekText + ' ' + // Fri
-    //                        this.state.dateInMonth + ' ' +   // 29
-    //                        this.state.monthText + ' ' +     // Oct
-    //                        this.state.year;                 // 2021
-    //
-    // same format as Date.toDateString() // eg. "Sun Oct 31 2021"
+
+    // TODO: This should be moved to a global utilities file
+    function shDateString(dateObj){
+      // output date in format: Fri, 29 Oct 2021
+      // (Date.toDateString returns format: Fri Oct 29 2021)
+      // (ie add comma and swap month and date values)
+
+      // Note my preferred calendar shortcuts are Different than toDateString()
+      // June, July, and Sept use 4 characters
+      // optionally use monthAlt instead of month in output string
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+      const monthAlt   = months[dateObj.getMonth()];
+
+      const [day, month, date, year] = dateObj.toDateString().split(' ');
+      return `${day}, ${date} ${month} ${year}`;
+    }
+
+    function shTimeString(dateObj){
+      // output time in format: 3:30 PM
+      // (Date.toTimeString returns format: 15:30:00 GMT-0700 (Pacific Daylight Time))
+      // I am not even in Daylight time right now, why does my local browser think I am??
+      // Does NOT output the time zone. Could this be problematic?
+      // Does NOT output time in format: 3:30 PM PST or PDT
+      // becauase I will NOT do a lookup for other time zone abbreviations
+      const [time24, gmt, timeZone] = dateObj.toTimeString().split(' ');
+      const [HH24, MM, ss] = time24.split(':');
+      let HH = HH24;
+      let AMorPM = 'AM';
+      if (HH >=12){
+        HH = HH - 12;
+        AMorPM = 'PM';
+      }
+      return `${HH}:${MM} ${AMorPM}`;
+    }
+
+    // const calendarStyle_selectedDate =
+    //      '.react-calendar__tile--active {
+    //           background: #ffac33;
+    //           color: white;
+    //           border-radius: 50%;
+    //       }';
+
 
   //  End local Render helper functions
 
@@ -283,21 +277,18 @@ class AddWorkout extends React.Component {
                 <form onSubmit={this.onSubmit}>
                       {/*HA! onSubmit is attached to the FORM, NOT the button!*/}
 
+                    <fieldset>
+                      <button>Add Workout</button>
+                      <button>Save DRAFT</button>
+                      <br />
+                    </fieldset>
+
+                    <fieldset>
+                      Workout Date:
+                      <h3>{shDateString(this.state.calDate)}</h3>
+                    </fieldset>
+
                     <SetWorkoutDuration />
-
-                    <label> temp test input as calendar</label>
-                    <input type="datetime-local" name="datetime" id="datetime"
-                           value={this.state.calDate}
-                           onChange={this.onCalendarChange}
-                    />
-                    <br />
-                    <label> temp test input as calendar</label>
-                    <input type="time" name="time" id="time"
-                           value={this.state.startTime}
-                           onChange={this.onTimeChange}
-                    />
-
-
 
                     <fieldset>
                       <h3>{this.toTitleCase(this.state.exerciseType)}</h3>
@@ -342,7 +333,27 @@ class AddWorkout extends React.Component {
 
                     <GetWorkoutDate>
                       {/* will I have a getworkoutTime or Calendar children or not?  */}
+                      {/* currently only shows START TIME. should move calendar into here  */}
                     </GetWorkoutDate>
+
+
+                    <fieldset>
+                      {/* TODO:
+                            - move all custom react-calendar stuff to GetWorkoutDate component
+                            - only open it if the h3 ShDateString is clicked on
+                            - add a "today" button to reset to current day
+                            - style today with a green border
+                            - highlight weekends
+                            - move first day of week as Mon, or Sat
+                            - Add Mon, Tue, ... Day of Week Headers!!
+                            - I would actually prefer to only show 1-2 weeks. Scroll for more weeks
+                      */}
+                      <Calendar
+                        onChange={this.onCalendarChange}
+                        value={this.state.calDate}
+                        view={"month"}
+                      />
+                    </fieldset>
 
                     <fieldset>
                       {/* This might be moved into getWorkoutDate or getworkoutTime component
@@ -368,14 +379,6 @@ class AddWorkout extends React.Component {
                       />
                       */}
                     </fieldset>
-
-                    <Calendar
-                      onChange={this.onCalendarChange}
-                      value={this.state.calendarValue}
-                    />
-
-                    <button>Add Workout</button>
-                    {/*HA! onSubmit is attached to the FORM, NOT the button!*/}
 
                 </form>
             </section>

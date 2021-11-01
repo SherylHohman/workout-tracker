@@ -172,13 +172,14 @@ class SetWorkoutDuration extends React.Component{
 
         return (
           <div>
-            setDuration Component
-            <fieldset>
-              <div>
-                <label>Time</label>
-                <h3>{duration_clock_str} | {duration_decimal_str}</h3>
-              </div>
 
+
+            <fieldset>
+              <label>Workout Duration:</label>
+              <h3>{duration_clock_str} | {duration_decimal_str}</h3>
+
+              <label>Workout Duration:</label>
+              <br />
               <label>Hours</label>
               <input
                       name="hours" id="hours"
