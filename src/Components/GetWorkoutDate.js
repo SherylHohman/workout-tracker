@@ -16,6 +16,9 @@ class GetWorkoutDate extends React.Component {
 
   }
 
+  // ============================
+  // EVENT HANDLERS
+  // ============================
 
     // trying to get react-calendar to work
       //  do not understand its API. Also it defaults to using hooks,
@@ -65,6 +68,10 @@ class GetWorkoutDate extends React.Component {
       this.setState({});
     }
 
+  // ============================
+  // UTILITY CONVERSION FUNCTIONS
+  // ============================
+
     // FOR ENTERING DATES, TIMES
      toIntegerDigitsOnly = (str) => {
         str = str.replace(/\D/g,'');
@@ -109,6 +116,10 @@ class GetWorkoutDate extends React.Component {
         str[0] = str[0].toUpperCase();
         return str.join('');
     }
+
+  // ============================
+  // EVENT HANDLERS
+  // ============================
 
     onChangeDayOfWeek = (event) => {
       let newValue = this.toLettersOnly(event.target.value);

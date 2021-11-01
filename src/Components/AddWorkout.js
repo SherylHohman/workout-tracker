@@ -3,6 +3,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
 import GetWorkoutDate from './GetWorkoutDate';
+import SetWorkoutDuration from './SetWorkoutDuration';
 
 
 class AddWorkout extends React.Component {
@@ -42,7 +43,13 @@ class AddWorkout extends React.Component {
       //  or some prediction on what will be next entered
 
   state = {
-      exerciseTotalMinutes: '',
+      exerciseTotalMinutes: 0,
+      //durationInMinutes: '0',
+      // should I store in DB as "minutes", or as milliseconds since Epoch"
+      //   eg new Date(0, 0, 0, 0, exerciseTotalMinutes).getDate();, where year=month=date=hour=0)
+      // hours:          0,
+      // minutes:        0,
+
       exerciseType:   'Get Moving!',  // cardio, weights, stretch, other/outdoor
       calDate:         new Date(),
       location:       '',
@@ -89,54 +96,12 @@ class AddWorkout extends React.Component {
         // note: stop-start can be > exercise duration
   };
 
-  // utility conversion functions
-  toHHMM(totalMinutes){
-    // hh can be a float or integer. mm must be an integer
-    // normalizes to max hr, and  mm < 60
-    // normalize to integer hours and minutes, keeping minutes < 60
-    const hh = Math.trunc(totalMinutes/60);
-    const mm = totalMinutes % 60;
-    return [hh, mm];
-  }
-  toTotalMinutes(hh, mm){
-    // returns sum of hh + mm as total minutes as an Integer
-    // hh can be entered as a decimal value eg 1.25hr, or an integer, or string
-    // mm should be an integer (or string) (maybe round JIC get some decimal value??)
-    // input can be STRING or Integer or Float (or null or empty string)
-    // NOTE: assumes a string only contains numbers or an optional decimal point.
-        // an error will occur elsewise.
-        // an odd bug not throwing an error will result if certain chars
-        // are not stripped letters off: parseFloat/parseInt might convert
-        // to oOctal, hex, insted. To avoid that, supply 2nd param of 10
-        // also JIC could re-strip the numbers.
-    const totalMinutes = parseFloat(hh || 0) * 60 +
-                           parseInt(mm || 0);
-    // JS float plus irrational numbers require rounding to closest integer
-    return Math.round(totalMinutes);
-  }
-  normalizeHHMM(hh, mm){
-    //  input can be string representations or numbers, where
-    //    hh is float or integer (or stripped string representation),
-    //    mm is integer (or stripped string representation of int)
-    //  returns normalized integer values of hh and mm
-    //  eg 1.25hr + 15 minutes is returned as 1hr 30min
-    //  ie an [hh, mm] array of: [1, 30]
-    return this.toHHMM(this.toTotalMinutes(hh, mm));
-  }
+
+  // SetWorkoutDuration helper methods were here
 
   //const [value, onChange] = useState(new Date());
 
   componentDidMount(props){
-    // set initial default calendar date to the time at component's initial mount.
-    //  This can then be changed through the calendar or input fields.
-    //  but is set/initialized as the current time only once: here!
-
-    // const calDate= new Date();
-    // console.log("componentDidMount, new calDate:", calDate);
-
-    // this.setState({
-    //   calDate: calDate,
-    // });
     console.log("componentDidMount, state:", this.state);
   }
 
@@ -162,6 +127,22 @@ class AddWorkout extends React.Component {
       // this.setState({calendarValue: new Date()});
       this.setState({calendarValue: new Date(value)});
     }
+    onDateChange = (event) => {
+      // Who knew the browser has date input fields!
+      console.log(event);
+      const value = event.target.value;
+      console.log(value);
+      // this.setState({calendarValue: new Date()});
+      this.setState({calendarValue: value});
+    }
+    onTimeChange = (event) => {
+      // Who knew the browser has time input fields!
+      console.log(event.target.value);
+      const value = event.target.value;
+      // this.setState({calendarValue: new Date()});
+      this.setState({startTime: value});
+      // this.setState({startTime: new Date(value)});
+    }
 
     // onChange = (event) => {
     //     console.log(event.target.name);
@@ -170,6 +151,7 @@ class AddWorkout extends React.Component {
     //     this.setState({});
     // }
 
+    /*
     //FOR START END TIME - Might not stay in this component
     onChangeStartTimeHr = (event) => {
       // rolls over: nieve quick hack to keep input value from 0-11 (AM/PM)
@@ -187,8 +169,12 @@ class AddWorkout extends React.Component {
       // allowed values are 'AM' or 'PM' (or maybe this should be lower case?)
       this.setState({});
     }
+    */
 
     // FOR ENTERING DATES, TIMES
+    // -- These should be exported to a Utility File
+    //  so it can be accessed by multiplel components
+
      toIntegerDigitsOnly = (str) => {
         str = str.replace(/\D/g,'');
         // no leading zeros
@@ -202,21 +188,7 @@ class AddWorkout extends React.Component {
         return str;
     }
 
-    // INPUT FIELDS FOR TIMES/ DURATIONS
-    onChangeHours = (event) => {
-        const newValue = event.target.value;
-        this.setState({hours: this.toDecimalDigitsOnly(newValue)});
-    }
-    onChangeMinutes = (event) => {
-        const newValue = event.target.value;
-        this.setState({minutes: this.toIntegerDigitsOnly(newValue)});
-    }
-    onClearHours = (event) => {
-        this.setState({hours: '0'});
-    }
-    onClearMinutes = (event) => {
-        this.setState({minutes: '0'});
-    }
+    // INPUT FIELDS FOR TIMES/ DURATIONS were here
 
     onChangeExercise = (event) => {
       this.setState({exerciseType: event.target.value});
@@ -267,18 +239,8 @@ class AddWorkout extends React.Component {
       //    so that can run stats on the broader categories, rather than just the specific ones.
       //    All that data can be input later by the user. And by me, the programmer.
 
-    const duration = this.state.exerciseTotalMinutes;
-    // currently I do not record seconds.
-    //  But when running, sometimes did..
-    //  store instead as exerciseElapsedSeconds ?
-    // const [exerciseHH, exerciseMM] = toHHMM(duration);
-    const [durationHH, durationMM] = this.toHHMM(duration);
 
-   // pad MM portion of string with zeros if needed for human readable output strings
-    const padded_MM_str = durationMM<10 ? '0' + durationMM.toString() : durationMM.toString();
-
-    const duration_clock_str   = durationHH.toString() + ':' + padded_MM_str;
-    const duration_decimal_str = (durationHH + (durationMM/60)).toFixed(2).toString();
+    // SetWorkoutDuration render helper functions were here
 
 
     //
@@ -289,6 +251,8 @@ class AddWorkout extends React.Component {
       // but not the TIME.
       // so for now I have code fragments both here and in the parent AddWorkout.js
     const calDate = this.state.calDate;
+
+    /* HIDE FOR NOW
     const startTimeMin = calDate.getMinutes();
     let startTimeHr    = calDate.getHours();
     let strAMorPM         = 'AM';
@@ -298,6 +262,7 @@ class AddWorkout extends React.Component {
       strAMorPM = 'PM';
       startTimeHr = startTimeHr - 12;
     }
+    */
 
 
     // // SOME OF THE BELOW has been replaced with above.
@@ -318,30 +283,21 @@ class AddWorkout extends React.Component {
                 <form onSubmit={this.onSubmit}>
                       {/*HA! onSubmit is attached to the FORM, NOT the button!*/}
 
-                    <fieldset>
-                      <div>
-                        <label>Time</label>
-                        <h3>{duration_clock_str} / {duration_decimal_str}</h3>
-                      </div>
+                    <SetWorkoutDuration />
 
-                      <label>Hours</label>
-                      <input  type="text" name="hours" id="hours"
-                              placeholder="2"
-                              value={durationHH}
-                              onChange={this.onChangeHours}
-                      />
-                      <button onClick={this.onClearHours}>clear</button>
-                      <br /><br />
+                    <label> temp test input as calendar</label>
+                    <input type="datetime-local" name="datetime" id="datetime"
+                           value={this.state.calDate}
+                           onChange={this.onCalendarChange}
+                    />
+                    <br />
+                    <label> temp test input as calendar</label>
+                    <input type="time" name="time" id="time"
+                           value={this.state.startTime}
+                           onChange={this.onTimeChange}
+                    />
 
-                      <label>Minutes</label>
-                      <input  type="text" name="minutes" id="minutes"
-                              placeholder="20"
-                              value={durationMM}
-                              onChange={this.onChangeMinutes}
-                      />
-                      <button onClick={this.onClearMinutes}>clear</button>
-                      <br /><br />
-                    </fieldset>
+
 
                     <fieldset>
                       <h3>{this.toTitleCase(this.state.exerciseType)}</h3>
@@ -389,7 +345,7 @@ class AddWorkout extends React.Component {
                     </GetWorkoutDate>
 
                     <fieldset>
-                      {/* This might be moved into getWorkoutDate or getworkoutTime component */}
+                      {/* This might be moved into getWorkoutDate or getworkoutTime component
                       <p>Start Time</p>
                       <h3>{startTimeHr}:{startTimeMin} {strAMorPM}</h3>
                       <label>Hr</label>
@@ -410,6 +366,7 @@ class AddWorkout extends React.Component {
                               value={strAMorPM}
                               onChange={this.onChangeYear}
                       />
+                      */}
                     </fieldset>
 
                     <Calendar
