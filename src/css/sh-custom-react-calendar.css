@@ -1,5 +1,122 @@
-.react-calendar__tile--active {
-    background: #ffac33;
-    color: white;
-    border-radius: 50%;
+/* TODO: these styles only work when the browser window
+    is INACTIVE!
+    FIX the styles.
+
+    Am supposed to create my own style classes, then pass them in
+    Docs:  https://www.npmjs.com/package/react-calendar;
+
+    Move notes from the bottom of this file to a more appropriate location
+    Like, README or Notes, or even a component class that could be in charge.
+
+    ClassNames that are to be added to the Calendar surrounding DIV element
+        are to be passed in as to
+        Classname = String: "class1 class2" or
+        Classname = Array of strings: ["class1", "class2 class3"]
+
+  */
+
+.react-calendar {
+    border-radius: 2em;
 }
+
+.react-calendar__month-view__weekdays {
+    color: darkorange;
+}
+
+.react-calendar__tile:enabled:hover, .react-calendar__tile:enabled:focus {
+    background-color: #e6e6e6;  /* gray */
+    border-radius: 2em;
+
+}
+.react-calendar__tile--active {
+    background: #ffac33;    /* orange aka yellow from the flower at top of app! ha! */
+    color: white;
+    border-radius: 45%;
+}
+
+.react-calendar__tile--now{
+    border: dashed 1px green !important; /* dashed or dotted, 1-2px */
+    background-color: white;  /* change to match background color */
+    border-radius: 2em;
+}
+
+
+/* TODO: ideally style each with a workout entry with a mark to denote
+        the type of workout recorded.
+        Also, Mark the ones with a SAVED DRAFT marker.
+        And those where I declared for Certain there was NO WORKOUT
+
+        Some markings would only make sense in specific views.
+        Add, Edit, or Summary of workout views.
+
+        And maybe the view will depend upon a button, such as a selected
+        workout Type. Or location.
+
+        REM:  also want to develop a view where I can enter multiple;
+        workout sessions by entering some data,
+        Then selecting dates to apply that data to.
+        (eg. "No Workout" "weights 2hr 24SC"
+          or partial workouts such as "cycling" or "weights", or "2hr", but no location)
+        THEN, I can apply that info quickly, and go back to enter rest of missing details.
+        Perhaps some of those details will be filled in in bulk too.
+        Of course, Those with only partial data should probably be marked
+        as DRAFT, and a review required.
+        Definitely anything without minimum amount of data should be marked
+        as DRAFT.
+
+        And could select a Workout Type, or a Location, to view only those items.
+        Could also view a list of items, say with missing Time.
+        Then accordian open the data, and click fields to fill in or edit.
+
+    Possible colors
+        Cardio:     ;blue (MB4 color)
+        Weights:    ;red  (24hr color)
+        Stretch:    ;yellow, or green, or purple (spiritual)
+        Other:      ;green (outside), or orange (fun)
+        NO WORKOUT (ie definitely did not workout)
+            vs also NO WORKOUT/type as in NO CARDIO, or NO WEIGHTS
+
+        DRAFT:      gray, yellow, ?;
+
+    Maybe after select certain cells for say weights,
+        then could open a list of only those items.
+        From there, could set location or time, and then
+         select which of those items to apply that value to.
+         repeat whith a different time or location set.
+         Could any time decide to unselect anything, but
+         to instead individually edit details for any item in the list.
+         At some point, save everything. And return to calendar view.
+
+         So there will be toggle button for denoting detail items to mark.
+         check-boxes, or toggle dates to mark dates to apply the info to
+         And then a button to go ahead and apply the data to those dates.
+
+         And a button to keep those dates selected, but now put them into
+         list view to further edit.
+
+    Want to mark dates for workout.
+    Such as when arrive at club, or when leave to goto club.
+    Mark the date. Or mark the arrival time.
+    Then can fill in the rest of the details later.
+    Even a week later, it will be marked as a draft.
+    Same for cycling.
+
+    GOALS: ;
+    1) easy data entry on the fly
+    2) easy data entry for years of backlogged workout data
+    3) (can access this data from anywhere, no lock in.
+        save and store and access and read easy).
+    4) Beautiful Stats
+    5) Enter goals eg av of 30min daily over course of a year.
+    6) show current progress against stated goal.
+    7) predict what kind of workout would be needed to catch up when behind.
+    8) recommend adjustments when stated goal looks unreasonable to meet.
+    9) Stats. Graphs. Of just about any kind.
+    10) Beautiful to look at. Beautiful to use.
+    11) Easy to use.
+    12) Obviously Perfect integrity of data.
+
+
+
+
+   */
