@@ -1,6 +1,6 @@
 import React from 'react';
 
-class GetWorkoutDate extends React.Component {
+class SetWorkoutDate extends React.Component {
 
   state = {
       calDate:         new Date(),
@@ -27,29 +27,11 @@ class GetWorkoutDate extends React.Component {
       //  I THINK, though, that he has some "controlled component" methods
       //  that can be used instead, but the docs are difficult to figure out, if so
     onCalendarChange = (event) => {
-      //OK, I do not think I can figure this out.
-      // installed the calendar via
-      // npm install react-calendar
-      // may need to UNINSTALL it
-      // It uses hooks, which are not compatible with class components
-      // Can either: use a different calendar,
-      //  refactor this component to use hooks,
-      //  or wrap their hooks
-      //  or figure out their API to use class Component.
-      // Long term: refactor to Addworkout to functional component/hooks
-      //  Short term.. use now, refactor later.
       console.log(event);
       const value = event.target.value;
       // this.setState({calendarValue: new Date()});
       this.setState({calendarValue: new Date(value)});
     }
-
-    // onChange = (event) => {
-    //     console.log(event.target.name);
-    //     console.log(event.target.value);
-    //     console.log(event.target.id);
-    //     this.setState({});
-    // }
 
     //FOR START END TIME - Might not stay in this component
     onChangeStartTimeHr = (event) => {
@@ -320,4 +302,4 @@ class GetWorkoutDate extends React.Component {
   }
 }
 
-export default GetWorkoutDate;
+export default SetWorkoutDate;

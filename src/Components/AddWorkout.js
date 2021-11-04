@@ -2,7 +2,7 @@ import React from "react";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
-import GetWorkoutDate from './GetWorkoutDate';
+import SetWorkoutDate from './SetWorkoutDate';
 import SetWorkoutDuration from './SetWorkoutDuration';
 import '../css/sh-custom-react-calendar.css';
 
@@ -331,10 +331,10 @@ class AddWorkout extends React.Component {
                     />
                     <br /><br />
 
-                    <GetWorkoutDate>
+                    <SetWorkoutDate>
                       {/* will I have a getworkoutTime or Calendar children or not?  */}
                       {/* currently only shows START TIME. should move calendar into here  */}
-                    </GetWorkoutDate>
+                    </SetWorkoutDate>
 
 
                     <fieldset>
