@@ -1,10 +1,13 @@
 import React from "react";
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 
-import SetWorkoutDate from './SetWorkoutDate';
-import SetWorkoutDuration from './SetWorkoutDuration';
+import 'react-calendar/dist/Calendar.css';
 import '../css/sh-custom-react-calendar.css';
+
+import SetWorkoutType      from './SetWorkoutType';
+import SetWorkoutDuration  from './SetWorkoutDuration';
+import SetWorkoutDate      from './SetWorkoutDate';
+import SetWorkoutStartTime from './SetWorkoutStartTime';
 
 
 class AddWorkout extends React.Component {
@@ -52,6 +55,12 @@ class AddWorkout extends React.Component {
       // minutes:        0,
 
       exerciseType:   'Get Moving!',  // cardio, weights, stretch, other/outdoor
+
+      // cal Date is the Date I get back from Calendar Component (react-calendar).
+      // BUT Calendar does NOT get a Time. Instead, it sets the TIME to (00 UTC?)
+      // When store Date-Time back into the database, I need to
+      // Combine the calDate with TIME to save a date-time.
+      // Remember when fetching data from DB, need to separate these two items again.
       calDate:         new Date(),
       location:       '',
 
@@ -93,8 +102,10 @@ class AddWorkout extends React.Component {
       //  sometimes as an exact time, sometimes as morn, night, afternoot, etc
       //  Will want this implemented before get to those records! DRY data entry.
         startTime:   '',  // TODO
-        stopTime:    ''   // TODO
+        stopTime:    '',   // TODO
         // note: stop-start can be > exercise duration
+
+        notes:      ''
   };
 
 
@@ -112,74 +123,39 @@ class AddWorkout extends React.Component {
       this.setState({calDate: new Date(date)});
     }
 
-    /*
-    //FOR START END TIME - Might not stay in this component
-    onChangeStartTimeHr = (event) => {
-      // rolls over: nieve quick hack to keep input value from 0-11 (AM/PM)
-      const hr = event.target.value % 12
-      this.setState({startTimeHr: hr});
+    onChangeExercise = (exerciseType) => {
+      console.log('AddWorkout onChangeExercise:', exerciseType);
+      this.setState({exerciseType: exerciseType});
     }
 
-    onChangeStartTimeMin = (event) => {
-      // rolls over: nieve quick hack to keep input value from 0-59
-      const min = event.target.value % 60;
-      this.setState({startTimeMin: min});
-    }
-    onChangeAMorPM = (event) => {
-      // breaks: change from input box to radio button so cannot have bad input
-      // allowed values are 'AM' or 'PM' (or maybe this should be lower case?)
-      this.setState({});
-    }
-    */
-
-    // FOR ENTERING DATES, TIMES
-    // -- These should be exported to a Utility File
-    //  so it can be accessed by multiplel components
-
-     toIntegerDigitsOnly = (str) => {
-        str = str.replace(/\D/g,'');
-        // no leading zeros
-        str.replace(/^[0]+/g,"");
-        return str;
-    }
-     toDecimalDigitsOnly = (str) => {
-        str = str.replace(/[^\d.]/g, ''); // add - if want negative decimals
-        // no leading zeros
-        str.replace(/^[0]+/g,"");
-        return str;
-    }
-
-    // INPUT FIELDS FOR TIMES/ DURATIONS were here
-
-    onChangeExercise = (event) => {
-      this.setState({exerciseType: event.target.value});
-    }
-
-    onChangelocation = (event) => {
+    onChangeLocation = (event) => {
       const newValue = event.target.value;
       this.setState({location: newValue.trim()});
       // TODO: do not trim until send form. Otherwise cannot add spaces between words
       // TODO: even better, use a searchable drop down PLUS ADD NEW option
     }
 
-    // INPUT FIELDS ALPHABETIC Fields Locations / DATES (day of week/month)
-     toLettersOnly = (str) => {
-        str = str.replace(/[^a-zA-Z]/g, ''); // add - if want negative decimals
-        // remove spaces
-        // str.replace(/^[0]+/g,"");
-        return str;
-    }
-    toTitleCase = (str) => {
-      // This version only works on single words, not sentences or multiple words
-        str = str.toLowerCase().split('');
-        //requires single word, otherwise split on ' '
-        str[0] = str[0].toUpperCase();
-        return str.join('');
+    onChangeNotes = (event) => {
+      const newValue = event.target.value;
+      this.setState({notes: newValue.trim()});
+      // TODO: do not trim until send form. Otherwise cannot add spaces between words
+      // TODO: even better, use a searchable drop down PLUS ADD NEW option
     }
 
     onSubmit = (event) => {
         event.preventDefault();
         console.log('I have your data:\n', this.state);
+    }
+    onSaveDraft = (event) => {
+      event.preventDefault();
+      console.log('I shall save your draft/incomplete data for further review/editing');
+      // Great for marking start time when arrive at the gym.
+      // Or when about to get on bike.
+      // Then can enter complete details when they are known, after the workout is complete.
+      // This is particularly good for cycling, when I may not enter data for several days
+      //  and could use a reminder as to what day I did the workout.
+      //  and same for the gym. Then I would know what time I did the workout
+      //  as well as which day it was.
     }
 
     render() {
@@ -201,9 +177,6 @@ class AddWorkout extends React.Component {
       //    All that data can be input later by the user. And by me, the programmer.
 
 
-    // SetWorkoutDuration render helper functions were here
-
-
     //
     // Not sure if start/end TIME of workout should be part of THIS component or
       // DATE - get workout Date component, as it is part of a Date()
@@ -212,19 +185,6 @@ class AddWorkout extends React.Component {
       // but not the TIME.
       // so for now I have code fragments both here and in the parent AddWorkout.js
     const calDate = this.state.calDate;
-
-    /* HIDE FOR NOW
-    const startTimeMin = calDate.getMinutes();
-    let startTimeHr    = calDate.getHours();
-    let strAMorPM         = 'AM';
-    // (assumes any value input has been normalized 0-23,
-    //  make sure onChange Input handles bad input, or perform Hr % 24)
-    if (startTimeHr >= 12) {
-      strAMorPM = 'PM';
-      startTimeHr = startTimeHr - 12;
-    }
-    */
-
 
 
     // TODO: This should be moved to a global utilities file
@@ -261,14 +221,6 @@ class AddWorkout extends React.Component {
       return `${HH}:${MM} ${AMorPM}`;
     }
 
-    // const calendarStyle_selectedDate =
-    //      '.react-calendar__tile--active {
-    //           background: #ffac33;
-    //           color: white;
-    //           border-radius: 50%;
-    //       }';
-
-
   //  End local Render helper functions
 
         return(
@@ -290,44 +242,17 @@ class AddWorkout extends React.Component {
 
                     <SetWorkoutDuration />
 
-                    <fieldset>
-                      <h3>{this.toTitleCase(this.state.exerciseType)}</h3>
-                      <label className="">
-                        <input type="radio" name="exerciseType" id="cardio"
-                               value="cardio" onChange={this.onChangeExercise}
-                               checked={this.state.exerciseType === "cardio"}
-                               />
-                        Cardio
-                      </label>
-                      <label className="">
-                        <input type="radio" name="exerciseType" id="weights"
-                               value="weights" onChange={this.onChangeExercise}
-                               checked={this.state.exerciseType === "weights"}
-                               />
-                        Weights
-                      </label>
-                      <label className="">
-                        <input type="radio" name="exerciseType" id="stretch"
-                               value="stretch" onChange={this.onChangeExercise}
-                               checked={this.state.exerciseType === "stretch"}
-                                />
-                        Stretch
-                      </label>
-                      <label className="">
-                        <input type="radio" name="exerciseType" id="other"
-                               value="other" onChange={this.onChangeExercise}
-                               checked={this.state.exerciseType === "other"}
-                                />
-                        Other
-                      </label>
-                    </fieldset>
+                    <SetWorkoutType
+                      exerciseType={this.state.exerciseType}
+                      onChangeExercise={(exerciseType)=>this.onChangeExercise(exerciseType)}
+                    />
 
                     <h3>{this.state.location}</h3>
                     <label>Location</label>
                     <input  type="text" name="location" id="location"
                             placeholder="24 SC"
                             value={this.state.location}
-                            onChange={this.onChangelocation}
+                            onChange={this.onChangeLocation}
                     />
                     <br /><br />
 
@@ -336,6 +261,21 @@ class AddWorkout extends React.Component {
                       {/* currently only shows START TIME. should move calendar into here  */}
                     </SetWorkoutDate>
 
+                    <SetWorkoutStartTime />
+
+                    <fieldset>
+                      <label htmlFor="notes">Notes:</label>
+                      <textarea id="notes" name="notes"
+                        rows="7" cols="40" maxLength="900"
+                        placeholder=" - how did you physically feel before/after
+                        - what movie did watch during cycling
+                        - how hard did you workout
+                        - what exercises did you do/not do
+                        "
+                        value={this.state.notes}
+                        onChange={this.onChangeNotes}
+                      />
+                    </fieldset>
 
                     <fieldset>
                       {/* TODO:
@@ -353,31 +293,6 @@ class AddWorkout extends React.Component {
                         value={this.state.calDate}
                         view={"month"}
                       />
-                    </fieldset>
-
-                    <fieldset>
-                      {/* This might be moved into getWorkoutDate or getworkoutTime component
-                      <p>Start Time</p>
-                      <h3>{startTimeHr}:{startTimeMin} {strAMorPM}</h3>
-                      <label>Hr</label>
-                      <input  type="text" name="month" id="month"
-                              placeholder="5"
-                              value={startTimeHr}
-                              onChange={this.onChangeStartTimeHr}
-                      />
-                      <label>Min</label>
-                      <input  type="text" name="year" id="year"
-                              placeholder="00"
-                              value={startTimeMin}
-                              onChange={this.onChangeStartTimeMin}
-                      />
-                      <label>AM or PM</label>
-                      <input  type="text" name="year" id="year"
-                              placeholder="2021"
-                              value={strAMorPM}
-                              onChange={this.onChangeYear}
-                      />
-                      */}
                     </fieldset>
 
                 </form>

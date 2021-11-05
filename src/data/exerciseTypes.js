@@ -10,10 +10,6 @@
 // or should these be categories (exerciseCategories)
 // an cycling/jogging, machines/calesthenics, stretch/yoga, ect
 //   be types? (exerciseTypes)
-const exerciseTypes1 = ["Cardio","Weights", "Stretch", "Other"];
-
-// For v.001, I suppose I could just use a simple array to populate
-//  a drop down menu.
 
 // eventually will want to be able to list items in the dropdown EITHER
 //  - by most often used (or most often used "recently"
@@ -25,12 +21,13 @@ const exerciseTypes1 = ["Cardio","Weights", "Stretch", "Other"];
 //    in the event that I show regular workout patterns. And I have
 //    *any* kind of AI avail.
 
-const exerciseTypes2 = {
-    cardio:     "Cardio",
-    weights:    "Weights",
-    stretch:    "Stretch",
-    other:      "Other"
-  }
+
+const exerciseTypes3 = [
+    {option: 'cardio',  label: 'Cardio'},
+    {option: 'weights', label: 'Weights'},
+    {option: 'stretch', label: 'Stretch'},
+    {option: 'other',   label: 'Other'}
+  ]
 
 // TODO: Questions:
 //       should walking be "other" or "cardio" ?
@@ -39,8 +36,8 @@ const exerciseTypes2 = {
 //       should exerciseNames be an object (probably)
 //          or an array (as I currently have)?
 
-const exerciseTypes3 = [
-    cardio:     {
+const exerciseTypes4 = [
+    {  cardio:     {
         displayAs: "Cardio",
         exerciseNames: ["cycling (MB4)", "cycling (MB4 outdoors)",
             "cycling (gym-recumbant)", "cycling (gym-upright)",
@@ -49,24 +46,88 @@ const exerciseTypes3 = [
             "jogging (treadmill)", "walking (treadmill)",
             "jogging (outdoors)", "walking (ourdoors)",
             "swimming"]
-        },
-    weights:     {
+        }
+    },
+    {  weights:     {
         displayAs: "Weights",
-        exerciseNames: {
-            ["machines", "free weights", "calesthenics"]
-        },
-    stretch:     {
+        exerciseNames: ["machines", "free weights", "calesthenics"]
+        }
+    },
+    {  stretch:     {
         displayAs: "Stretch",
-        exerciseNames: {
-            ["sretch", "yoga", "Qi Gong?"]
-        },
-    other:     {
+        exerciseNames:
+            ["stretch", "yoga", "Qi Gong?"]
+        }
+    },
+    {  other:     {
         displayAs: "Cardio",
-        exerciseNames: {
+        exerciseNames:
             ["walking outdoors", "jogging outdoors", "cycling outdoors", "Tai Chi"]
-        },
+        }
+    }
+];
 
+const exerciseTypes5 = [
+    // or should this be like `{ category: 'cardio', label: 'Cardio, ...}`
+    // instead of             `{cardio: { label: 'Cardio', ...}}``
+    // but not have an encompasing/wrapping object name?
+    // or both: `{cardio: { category: 'cardio', label: 'Cardio", ...}}'
+    {  cardio:     {
+        label: "Cardio",
+        exerciseNames: [
+            {   name: "cycling",
+                equipment: [
+                    "MB4 stationary", // this could further be Kinetic Rock-N-Roll vs Kinetic Orig
+                    "MB4 outdoors",
+                    "Trek stationary",  // Kinetic Rock-N-Roll vs Kinetic Orig
+                    "Vicount stationary",
+                    "Vicount outdoors",
+                    "gym-recumbant",
+                    "gym-upright",
+                ]
+            },
+            {   name: "jogging",
+                equipment: [
+                    "treadmill", // could further be MY treadmill vs gym treadmill
+                    "outdoors"
+                ]
+            },
+            {   name: 'walking',
+                equipment: [
+                    "treadmill",
+                    "outdoors",
+                ]
+            },
+            {   name: 'swimming',
+                equipment:  [
+                    "pool",
+                    "lake, river, ocean"
+                ]
+            }
+        ] // exercise names
+        }, // cardio details
+    }, // cardio container
+    {  weights:     {
+        label: "Weights",
+        exerciseNames: ["machines", "free weights", "calesthenics & home dumbells/bands, lounges, etc"]
+        }
+    }, // weights container
+    {  stretch:     {
+        label: "Stretch",
+        exerciseNames:
+            ["stretch", "yoga", "Qi Gong?"]
+        }
+    }, // stretch container
+    {  other:     {
+        label: "Cardio",
+        exerciseNames:
+            ["roller skating", "walking outdoors", "jogging outdoors", "cycling outdoors", "Tai Chi"]
+            // not a proper exercise set. Must look at old data to remember how I broke this category down.
+            // EITHER it is alternative activities, (not jogging/walking)
+            // OR it is outdoor activity. (in which case could be a T/F field in the other category types instead.)
+        }
+    } // other container
 ];
 
 
-export default exerciseTypes1;
+export default exerciseTypes3;
