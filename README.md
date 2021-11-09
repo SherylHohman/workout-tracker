@@ -13,11 +13,19 @@ by Sheryl Hohman copyright 2021
 	[workout-tracker (vercel deployment)](https://workout-tracker-five.vercel.app)  
 	(`https://workout-tracker-five.vercel.app`)  
 
-### WIP: Current Status of this app is Stage 0
+### WIP: Current Status of this app is DEV Stage 0
 
     Setting up initial tooling
     NOT even close to an MVP!
-	(just shows create-react-app page!)
+    In Early DEV ONLY.
+    WIP
+	
+	NOTE: this is only public it is actually only in DEV, 
+	There is NO a release or beta or even alpha.
+	
+	It is only listed on Main branch because it is easiest to Netlify the app from main branch, rather than DEV branches. I do not expect anyone but me to look at it.
+
+	TODO: setup Netlify to work with DEV branches.
 
 
 ### The app (will) show:
@@ -55,6 +63,24 @@ I might even add AI stats.
 Like the probability I'll workout tomorrow.
 Or, a reasonable plan of attack to reach a specific goal, 
 based on my long, short, and medium historical patterns of workouts.
+
+### Dependencies, Libraries, etc chosen to create this app
+
+ - create-react-app
+ - vercel
+ - netlify
+ - (as cdn imports currently, or  
+    as css files downloaded into public folder or y-experimental folder:
+ 			- bulma css
+ 			- semantic css
+ 			- pureio css
+ 			- normalize.css
+ 			- new reset css
+ 			- reset css (named as: hard-old-css-reset.css)
+   )
+ - react-calendar
+
+	
 
 ----------------------------------------
 # Getting Started with Create React App
@@ -237,6 +263,67 @@ Add snippet to readme to always display status of latest build
 
 # TODO:
 
+211108:	
+
+	CSS
+	Components UI, Accessability
+	Chakra
+		Decided on Chakra for UI (CSS + Components + including Accessability)
+		-- Here is a good breakdown that explains my choice, 
+		  compared with others I considered. 
+		  (Dodds uses Tailwind, Grider uses Semantic, I tried Semantic and Bulma, looked at others)
+		  https://chakra-ui.com/docs/comparison
+		- Includes Accessability
+		- Has tailwind-like CSS naming and styling
+		- Unfortunately, it requires use of their components instead of using JSX/HTNL components.
+		So it requires learning/using their eco-system. Would prefer to use Native HTML/JSl learning only their CSS.
+		I guess using any CSS framework requires lok-in of some sort, and learning their whole eco-system anyway, so ..
+		- OTOH, do I even need accesability? I mean, it is only fo rme anyway. MAYBE I publish somewhere and some random person decides to try it out, but..
+		- So there will be more of a learning curve, and more of a lock in than I would like!!
+		- It is ultimately customisable though!. All styles are passed in as propps, so it is all CSS in JS, and easy to override anything.
+		- Do not prefer their buy advanced components and layouts. But, eh, I guess it is mosly fair. 
+		- The do NOT HAVE ANY TIME or DATE Components !!!
+		- Their website, while not easiest to find/determine needed components, or styles values, 
+		- ..it does have a great "editible code" examples!!
+		  So that is a win for them/me!
+
+	DownShift for 
+	searchable drop down menus.
+		- It includes accessability
+		- I hope the same Chakra styles can be easily applied
+		- Dodds
+
+	
+	react-styles
+		- necessary for Chakra, or was it for DownShift.
+		Another thing to learn. (prefer if most everything was vanillar JS or React only, but..)
+
+	Date Picker
+	react-calendar
+		Already startted using react-calendar for Date (but NOT TIME) picker. Now need to choose Time picker.
+	I want Date Picker to include a "Today" button though.
+	So may need to customize/copy the  Calendar component so it can have a Today button. Or choose a different Calendar creator plugin.
+
+	Time Picker: 
+	React-Toolbox
+		http://react-toolbox.io/#/components/time_picker
+		If want an android-like circular time picker, use react-toolbox.io
+		import TimePicker from 'react-toolbox/lib/time_picker';
+  	Their Switch is also nice - Although I think Chakra also has one for its light/dark mode.
+
+  React Fastclick
+		https://github.com/JakeSidSmith/react-fastclick
+	Instantly make your desktop / hybrid apps more responsive on touch devices.
+
+	Storybook
+		Might be interesting to use Storybook to build/test UI.
+		GitHub, Airbnb, and Stripe all use it, so maybe useful skill.
+		https://storybook.js.org/docs/react/get-started/conclusion
+		But looks too involved for right now.
+
+
+prev (last updated week or so ago): 
+
 - get a basic CSS framework for initial styling
   top contenders:  
   (both can be used immediately via CDN link,
@@ -308,6 +395,9 @@ Add snippet to readme to always display status of latest build
 ===========================
 
 # Changelog:
+
+
+... (see git commits ?)
 
 - 211019
     - add css folder to public and put normalize.css, the-new-css-reset.css

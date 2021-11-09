@@ -5,12 +5,24 @@ import React from "react";
       /*
           My issues with Pure are:
           -  I forgot.
-          -  (see Benefits) extra typing repetitive reading as every class is
-              prefixed with "pure-". Also I do not like the NAME of the library.
-              purecss is too similar to pure css as it is commonly used.
-              This also makes searches difficult.
+          -  (also see Benefits) extra typing repetitive reading as every class is
+              prefixed with "pure-".
           -  Ugly classes. My brain does not want to read them. Maybe they are
               easier to read, once convince brain to bother with it?
+          -  Also I do not like the NAME of the library.
+              purecss is too similar to pure css as it is commonly used.
+              This also makes searches difficult.
+          -   I do not like the word "pure" to be in  every className list
+              though one might think I might like the word "pure", I do not.
+            - Do not like the name "pure", particularly as it gives itself the
+              nomenclature: pure css. Which is clearly not pure css.
+              It is custom classes.
+              I get that it is classes ONLY, nothing applied to elements themselves
+              and no custom components, et al. So it tried to market itself on this
+              as its strength. But the effect lends itself to a misnomer.
+              It also pollutes the search term for pure css,
+              whether you are searching for info on this library,
+              or info excluding this library!
           Benefits
           -  I forgot.
           -  all pure classes are prefixed as pure, for easy identification!
