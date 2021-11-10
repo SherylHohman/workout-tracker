@@ -1,7 +1,7 @@
 import './App.css';
 import AddWorkout from './Components/AddWorkout';
 // TEMP EXPERIMENT:
-//import TestStyles from './y-experimentation/css-forms/forms-css-component.js';
+import TestStyles from './y-experimentation/css-forms/testStyles.js';
 
 // In general it is preferential to import images into the modules as needed.
   // Added benefit: The build breaks on missing images,
@@ -35,7 +35,11 @@ function App() {
         By Sheryl Hohman
       </header>
       <AddWorkout />
-      {/*<TestStyles />*/}
+
+      <br /><br /><br />
+      <h1>Test Style Libraries?</h1>
+      <TestStyles />
+      <br />
     </div>
   );
 }

@@ -163,8 +163,6 @@ class FormUnstyled extends React.Component {
 
 }
 
-export default AddWorkout;
-
     // TODO look into the using a pre-made date selector:
 
         // Modern React Calendar DatePicker

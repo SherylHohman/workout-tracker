@@ -1,3 +1,4 @@
+
 // Changes the DOM without going through React,
 //  would this BREAK REACT ?
 // Hmm.. this might be a bad idea.
@@ -24,7 +25,7 @@
 
 // export function addFile(filename, filetype='css'){
 
-export function loadjscssfile(filename, filetype='css'){
+export default function loadjscssfile(filename, filetype='css'){
     // only add the file if it does not already exist on the DOM
       if (filetype=="js"){ //if filename is a external JavaScript file
           var fileref=document.createElement('script')

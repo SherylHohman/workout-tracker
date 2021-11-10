@@ -1,4 +1,5 @@
 import React from "react";
+import "./css/bulma.min.css";
 
   const formBulmaStyled = function() {
 
@@ -147,3 +148,12 @@ import React from "react";
     }
 
 export default formBulmaStyled;
+
+  /*
+  If decide to use Bulma, here is where it can be found
+      <!-- Bulma.css: To test out bulma.io styling, use  -->
+      //  To use for the entire app add below to public/index.html -->
+      // <link rel="stylesheet" href="css/bulma.min.css">
+      <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"> -->
+      // or npm install it into the project
+  */
