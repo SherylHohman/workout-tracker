@@ -275,17 +275,42 @@ Add snippet to readme to always display status of latest build
 		  https://chakra-ui.com/docs/comparison
 		- Includes Accessability
 		- Has tailwind-like CSS naming and styling
-		- Unfortunately, it requires use of their components instead of using JSX/HTNL components.
+		- Uses 
+		  - [emotion](https://emotion.sh/docs/introduction)
+		    	which was based on:
+			    - (glamourous(Dodds), 
+			    - styled-components,
+			      [styled-components](https://styled-components.com/) 
+			    - glamor, etc)
+		  Woah! Yikes. 
+		    Tagged Template string literals
+		    [Tagged templates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates) 
+		    [Tagged Template Literals](https://styled-components.com/docs/advanced#tagged-template-literals)
+		    Template literals as function calls.
+
+		    Awesome:
+		    [The Magic Behind styled-components 2016](https://mxstbr.blog/2016/11/styled-components-magic-explained/) 
+
+		  OK. More learning goodness 
+		  	(and why (styled-components, aphrodite, etc) were created! ("Styles in JS libraries")
+		  	[CSS-in-JS vs Inline Styles](https://mxstbr.blog/2016/11/inline-styles-vs-css-in-js/)
+
+		  - [styled-system](https://styled-system.com/)
+
+		- Unfortunately, it requires use of their components instead of using JSX/HTML components.
 		So it requires learning/using their eco-system. Would prefer to use Native HTML/JSl learning only their CSS.
-		I guess using any CSS framework requires lok-in of some sort, and learning their whole eco-system anyway, so ..
+		I guess using any CSS framework requires lock-in of some sort, and learning their whole eco-system anyway, so ..
+		- Also probably better than building my own, which is what would wind up happening.
 		- OTOH, do I even need accesability? I mean, it is only fo rme anyway. MAYBE I publish somewhere and some random person decides to try it out, but..
 		- So there will be more of a learning curve, and more of a lock in than I would like!!
-		- It is ultimately customisable though!. All styles are passed in as propps, so it is all CSS in JS, and easy to override anything.
-		- Do not prefer their buy advanced components and layouts. But, eh, I guess it is mosly fair. 
-		- The do NOT HAVE ANY TIME or DATE Components !!!
-		- Their website, while not easiest to find/determine needed components, or styles values, 
+		- It is ultimately customisable though!. All styles are passed in as props, so it is all CSS in JS, and easy to override anything.
+		- Do not prefer their buy advanced components and layouts. But, eh, I guess it is fair. 
+		- They do NOT HAVE ANY TIME or DATE Components !!!
+		- Their website, while it is not the easiest to find/determine needed components, or styles values, 
 		- ..it does have a great "editible code" examples!!
-		  So that is a win for them/me!
+		  So that is a win for me trends me toward them!
+
+		- Overall, I think this is a good choice. Get over those hesitations!
 
 	DownShift for 
 	searchable drop down menus.
@@ -296,7 +321,7 @@ Add snippet to readme to always display status of latest build
 	
 	react-styles
 		- necessary for Chakra, or was it for DownShift.
-		Another thing to learn. (prefer if most everything was vanillar JS or React only, but..)
+		Another thing to learn. (prefer if most everything was vanillar JS or React only, but..). Good to know anyway.
 
 	Date Picker
 	react-calendar
@@ -315,11 +340,14 @@ Add snippet to readme to always display status of latest build
 		https://github.com/JakeSidSmith/react-fastclick
 	Instantly make your desktop / hybrid apps more responsive on touch devices.
 
+	Popper
+		For tooltips, drop-downs, etc to always remain within the screen view. It will pop to a different location trying to keep the entire pop-over content within view.
+
 	Storybook
 		Might be interesting to use Storybook to build/test UI.
 		GitHub, Airbnb, and Stripe all use it, so maybe useful skill.
 		https://storybook.js.org/docs/react/get-started/conclusion
-		But looks too involved for right now.
+		But looks too involved for my small project.
 
 
 prev (last updated week or so ago): 
