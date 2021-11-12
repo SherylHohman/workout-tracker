@@ -5,11 +5,17 @@ by Sheryl Hohman copyright 2021
 ### Test this app out at:  
 
  - (netlify - automatically deploys the latest pushed code)  
+	DEV branch Deploy! (More relevant/current at this stage)  
+	[![Netlify Status](https://api.netlify.com/api/v1/badges/45895dff-5c1a-4a2e-8326-0694ff5c7276/deploy-status)](https://app.netlify.com/sites/dev-sheryl-workout-tracker/deploys)  
+	[DEV BRANCH workout-tracker (netlify deployment)](https://dev-sheryl-workout-tracker.netlify.app/)  
+	`https://dev-sheryl-workout-tracker.netlify.app/`    
+
+	Main Branch (No Actual Production/released versions yet)  
 	[![Netlify Status](https://api.netlify.com/api/v1/badges/45895dff-5c1a-4a2e-8326-0694ff5c7276/deploy-status)](https://app.netlify.com/sites/sheryl-workout-tracker/deploys)  
 	[workout-tracker (netlify deployment)](https://sheryl-workout-tracker.netlify.app/)  
 	`https://sheryl-workout-tracker.netlify.app/`    
 
- - (vercel - less frequently updated)  
+ - (vercel - much less frequently updated)  
 	[workout-tracker (vercel deployment)](https://workout-tracker-five.vercel.app)  
 	(`https://workout-tracker-five.vercel.app`)  
 
@@ -204,6 +210,20 @@ After any code changes:
   Automatically rebuilt and redeployed everytime github repository `main` branch gets updated  
   Can be **public** or **private** repository.
   But for SelfHosted GitHub/GitLab, need paid account.
+
+  Added Branch Deployments  
+  (211111, DEV branch is deployed (`dev`))  
+  URL format for branch deploys is:  
+  https://<branch-name>-<app-url>.netfily.com  
+  (eg. https://dev-sheryl-workout-tracker.netlify.app/)
+  *HOWEVER DEV BRANCH DEPLOYMENT IS NOT WORKING! for me right now*
+
+💡   *Branch Deploy Settings here:
+		https://app.netlify.com/sites/sheryl-workout-tracker/settings/deploys
+		more info here: https://docs.netlify.com/site-deploys/overview/#branches-and-deploys
+		Add or Remove Deployment Branches*  
+
+
   
 #### (How to deploy via netlify)  
 
