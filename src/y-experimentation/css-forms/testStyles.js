@@ -85,7 +85,7 @@ class TestStyles extends React.Component {
 
     return (
       <div style={none}>
-          <h1>Add Workout</h1>
+          <h1>Preview Styling Libraries ?</h1>
 
           <div>
             <button onClick={this.onSelectUI} value="" id="none" name="none">none</button>

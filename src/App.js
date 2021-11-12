@@ -37,7 +37,7 @@ function App() {
       <AddWorkout />
 
       <br /><br /><br />
-      <h1>Test Style Libraries?</h1>
+      {/*<h1>Test Style Libraries?</h1>*/}
       <TestStyles />
       <br />
     </div>
