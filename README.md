@@ -6,9 +6,9 @@ by Sheryl Hohman copyright 2021
 
  - (netlify - automatically deploys the latest pushed code)  
 	DEV branch Deploy! (More relevant/current at this stage)  
-	[![Netlify Status](https://api.netlify.com/api/v1/badges/45895dff-5c1a-4a2e-8326-0694ff5c7276/deploy-status)](https://app.netlify.com/sites/dev-sheryl-workout-tracker/deploys)  
-	[DEV BRANCH workout-tracker (netlify deployment)](https://dev-sheryl-workout-tracker.netlify.app/)  
-	`https://dev-sheryl-workout-tracker.netlify.app/`    
+	[![Netlify Status](https://api.netlify.com/api/v1/badges/45895dff-5c1a-4a2e-8326-0694ff5c7276/deploy-status)](https://app.netlify.com/sites/dev--sheryl-workout-tracker/deploys)  
+	[DEV BRANCH workout-tracker (netlify deployment)](https://dev--sheryl-workout-tracker.netlify.app/)  
+	`https://dev--sheryl-workout-tracker.netlify.app/`    
 
 	Main Branch (No Actual Production/released versions yet)  
 	[![Netlify Status](https://api.netlify.com/api/v1/badges/45895dff-5c1a-4a2e-8326-0694ff5c7276/deploy-status)](https://app.netlify.com/sites/sheryl-workout-tracker/deploys)  
@@ -214,14 +214,30 @@ After any code changes:
   Added Branch Deployments  
   (211111, DEV branch is deployed (`dev`))  
   URL format for branch deploys is:  
-  https://<branch-name>-<app-url>.netfily.com  
-  (eg. https://dev-sheryl-workout-tracker.netlify.app/)
+  https://<branch-name>--<app-url>.netfily.com  
+  (eg. https://dev--sheryl-workout-tracker.netlify.app/)
   *HOWEVER DEV BRANCH DEPLOYMENT IS NOT WORKING! for me right now*
 
 💡   *Branch Deploy Settings here:
 		https://app.netlify.com/sites/sheryl-workout-tracker/settings/deploys
 		more info here: https://docs.netlify.com/site-deploys/overview/#branches-and-deploys
 		Add or Remove Deployment Branches*  
+
+		IF branch will not build (see netlify logs at:  
+			BRANCH DEPLOY RECORDS at: 
+			  https://app.netlify.com/sites/sheryl-workout-tracker/deploys  
+			Then click the arrow at the right.  
+			LOG records, (and Deploy Summary) will be there!
+
+			https://stackoverflow.com/questions/62663451/treating-warnings-as-errors-because-process-env-ci-true-failed-to-compile
+		Add an Environment variable `CI` set to `false`.  
+		This ensures build will not FAIL and STOP due to warning messages.   
+		SO Answer  
+		  https://stackoverflow.com/a/66442253/5411817  
+		SO Question  
+		    https://stackoverflow.com/questions/62663451/treating-warnings-as-errors-because-process-env-ci-true-failed-to-compile  
+
+		Note: for production, this maybe should be changed.
 
 
   

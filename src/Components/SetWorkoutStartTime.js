@@ -222,7 +222,7 @@ class SetWorkoutStartTime extends React.Component {
     startTime_hh12 = startTime_hh12 % 12;
 
     let   startTime_hh24  = startTime_hh12;
-    if (strAMorPM=='PM') {
+    if (strAMorPM === 'PM') {
       startTime_hh24 = (startTime_hh12 + 12);
     }
 

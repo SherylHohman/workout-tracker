@@ -91,11 +91,8 @@ class TestStyles extends React.Component {
             <button onClick={this.onSelectUI} value="" id="none" name="none">none</button>
             <button onClick={this.onSelectUI} value="unstyled" id="unstyled" name="uiStyle">unstyled</button>
             <button onClick={this.onSelectUI} value="semantic" id="semantic" name="uiStyle">Semantic UI</button>
-            {/* semantic requires theme files downloaded. must add cdn link to index.htma, or npm install semantic */}
-            {/*Semantic UI*/}
             <button onClick={this.onSelectUI} value="bulma" id="bulma" name="uiStyle">Bulma</button>
             <button onClick={this.onSelectUI} value="pure" id="pure" name="uiStyle">Pure</button>
-            {/*<br />CANNOT SHOW SEMANTIC UI unless npm install, or put CDN link back into index.html*/}
             <br />
             <p>{this.state.selectedUI}</p>
           </div>

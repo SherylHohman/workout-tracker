@@ -26,14 +26,15 @@
 // export function addFile(filename, filetype='css'){
 
 export default function loadjscssfile(filename, filetype='css'){
+      var fileref;
     // only add the file if it does not already exist on the DOM
-      if (filetype=="js"){ //if filename is a external JavaScript file
-          var fileref=document.createElement('script')
+      if (filetype==="js"){ //if filename is a external JavaScript file
+          fileref=document.createElement('script')
           fileref.setAttribute("type","text/javascript")
           fileref.setAttribute("src", filename)
       }
-      else if (filetype=="css"){ //if filename is an external CSS file
-          var fileref=document.createElement("link")
+      else if (filetype==="css"){ //if filename is an external CSS file
+          fileref=document.createElement("link")
           fileref.setAttribute("rel", "stylesheet")
           fileref.setAttribute("type", "text/css")
           fileref.setAttribute("href", filename)
@@ -49,14 +50,14 @@ export default function loadjscssfile(filename, filetype='css'){
 }
 
 export function removejscssfile(filename, filetype){
-    const targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none"; //determine element type to create nodelist from
-    const targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none"; //determine corresponding attribute to test for
+    const targetelement=(filetype==="js")? "script" : (filetype==="css")? "link" : "none"; //determine element type to create nodelist from
+    const targetattr=(filetype==="js")? "src" : (filetype==="css")? "href" : "none"; //determine corresponding attribute to test for
     const allsuspects=document.getElementsByTagName(targetelement);
 
     //search backwards within nodelist for matching elements to remove
     for (let i=allsuspects.length; i>=0; i--){
         if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null &&
-            allsuspects[i].getAttribute(targetattr).indexOf(filename)!=-1
+            allsuspects[i].getAttribute(targetattr).indexOf(filename)!==-1
         ){
             allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
         }
@@ -66,13 +67,21 @@ export function removejscssfile(filename, filetype){
     // removejscssfile("somestyle.css", "css") //remove all occurences "somestyle.css" on page
 }
 
+
+    // THE FUNCTION BELOW CANNOT BE USED WITHOUT ALSO ADDING A VARIABLE, LIKE BELOW
+    //  This is NOT settup to be used as an export function. It is set up for copy-paste.
+    //  Since I am not using it, leave as is. This entire file will be retired anyway.
+    //   But it IS a great reference.
+    //  Hopefully I added URL of where I found this code. Too tired to keep eyes open anymore.
+    //  Plz check, and update with URL if it is not.
+
     //list of files already added
     var filesadded="";
 
-    function checkloadjscssfile(filename, filetype){
+    export function checkloadjscssfile(filename, filetype){
         // ONLY WORKS IF CALLING FUNCTION KEEPS A LIST OF FILESADDED, so NOT EXPORTED
 
-        if (filesadded.indexOf("["+filename+"]")==-1){
+        if (filesadded.indexOf("["+filename+"]")===-1){
             loadjscssfile(filename, filetype)
             filesadded+="["+filename+"]" //List of files added in the form "[filename1],[filename2],etc"
         }

@@ -1,9 +1,12 @@
 import React from "react";
+
 // import './css/semantic.min.css';
 // importing does not work, because the min.css file references icons and fonts
 // that are supposed to exist in a local theme directory!
 // a compile time error
-   import loadjscssfile from "./dynamicallyAddRemoveStylesheetsAndScriptsToIndexHTMLfile.js"
+import loadjscssfile from "./dynamicallyAddRemoveStylesheetsAndScriptsToIndexHTMLfile.js";
+const semanticCDN = 'https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css';
+
 
   const formSemanticUIstyled = function () {
 
@@ -40,7 +43,7 @@ import React from "react";
       // this attempts to add link tag to index.html dynamically
       // note that it will repeatedly add the same file every time the component it mounted.
       // I do nothing to remove it.
-      loadjscssfile('https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css', 'css');
+      loadjscssfile(semanticCDN, 'css');
 
       return (
 
@@ -123,10 +126,10 @@ import React from "react";
                   </div>
 
                   <div className="inline fields">
-                    <label htmlFor="fruit">Select your favorite fruit:</label>
+                    <label htmlFor="fruit">(READ ONLY) Select your favorite fruit:</label>
                       <div className="field">
                         <div className="ui radio checkbox">
-                          <input type="radio" name="fruit" checked="" tabIndex="0" className="hidden" />
+                          <input type="radio" name="fruit" readOnly checked="" tabIndex="0" className="hidden" />
                           <label>Apples</label>
                         </div>
                       </div>
